@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  /* Primär - Trygg blågrön */
+  --color-primary-50: #f0f9f9;
+  --color-primary-100: #d9f0f0;
+  --color-primary-200: #b5e1e1;
+  --color-primary-300: #88cbcb;
+  --color-primary-400: #4a9b9b;
+  --color-primary-500: #3d8585;
+  --color-primary-600: #336d6d;
+  --color-primary-700: #2d5959;
+  --color-primary-800: #284949;
+  --color-primary-900: #243d3d;
+
+  /* Sekundär - Varm sand/beige */
+  --color-sand-50: #fdfcfa;
+  --color-sand-100: #f9f6f0;
+  --color-sand-200: #f5f0e8;
+  --color-sand-300: #ebe3d5;
+  --color-sand-400: #d9cdb8;
+  --color-sand-500: #c4b496;
+  --color-sand-600: #a89574;
+  --color-sand-700: #8a7759;
+  --color-sand-800: #6d5d46;
+  --color-sand-900: #524537;
+
+  /* Accent - Dämpad korall */
+  --color-coral-50: #fef6f4;
+  --color-coral-100: #fdeae5;
+  --color-coral-200: #fbd5cc;
+  --color-coral-300: #f4b5a6;
+  --color-coral-400: #e8836b;
+  --color-coral-500: #d96a50;
+  --color-coral-600: #c4533a;
+  --color-coral-700: #a3432e;
+  --color-coral-800: #863928;
+  --color-coral-900: #6e3125;
+
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Nunito', system-ui, sans-serif;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-sand-50);
+  color: #2d3748;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* Custom utility classes */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-primary-400);
+  outline-offset: 2px;
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--color-primary-200);
+  color: var(--color-primary-900);
+}
