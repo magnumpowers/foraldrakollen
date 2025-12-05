@@ -1,4 +1,4 @@
-import { Users, Podcast, ExternalLink, Heart } from 'lucide-react'
+import { Users, ExternalLink, Heart } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -70,27 +70,8 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              {/* Podcast links */}
-              <div className="mt-10 pt-8 border-t border-sand-200 space-y-4">
-                <a
-                  href="https://veckans.ai"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 bg-primary-50 rounded-2xl border border-primary-100 hover:border-primary-300 transition-colors group"
-                >
-                  <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center group-hover:bg-primary-200 transition-colors">
-                    <Podcast className="w-6 h-6 text-primary-600" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
-                      Veckans AI
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      Besök vår hemsida
-                    </div>
-                  </div>
-                  <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-primary-500 transition-colors" />
-                </a>
+              {/* Spotify link */}
+              <div className="mt-10 pt-8 border-t border-sand-200">
                 <a
                   href="https://open.spotify.com/show/61Fr0ASttW7VmunY1r0EtR"
                   target="_blank"
