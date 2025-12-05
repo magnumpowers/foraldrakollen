@@ -18,7 +18,7 @@ const nunito = Nunito({
 
 export const metadata: Metadata = {
   title: 'Föräldrakollen | Skydda ditt barn på nätet',
-  description: 'En forskningsbaserad guide för föräldrar som vill hjälpa sina barn (8-16 år) att vara trygga online. Steg-för-steg-instruktioner för iOS, Android, TikTok, Instagram, Snapchat och YouTube.',
+  description: 'En forskningsbaserad guide för föräldrar som vill hjälpa sina barn (8-13 år) att vara trygga online. Steg-för-steg-instruktioner för iOS, Android, TikTok, Instagram, Snapchat och YouTube.',
   keywords: ['barn säkerhet', 'föräldrakontroll', 'skärmtid', 'TikTok', 'Instagram', 'Snapchat', 'digital uppfostran', 'näthat', 'grooming'],
   authors: [{ name: 'Föräldrakollen' }],
   icons: {

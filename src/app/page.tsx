@@ -100,7 +100,7 @@ export default function Home() {
 
             <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               Praktiska steg-för-steg-guider för att ställa in säkra inställningar på iOS, Android,
-              TikTok, Instagram, Snapchat och YouTube. Anpassat för barn 8–16 år.
+              TikTok, Instagram, Snapchat och YouTube. Anpassat för barn 8–13 år.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -211,7 +211,8 @@ export const guides: Guide[] = [
       'Gå igenom vänlistor/följare regelbundet tillsammans',
       'Prata om riskerna: att aldrig ge ut personlig info, bilder eller möta upp en nätkontakt utan föräldrars vetskap',
       'Om någon okänd kontaktar eller om barnet får olämpliga förfrågningar – uppmuntra att berätta direkt för er',
-      'Den öppna dialogen är avgörande – visa att ni står på deras sida utan att skuldbelägga'
+      'Den öppna dialogen är avgörande – visa att ni står på deras sida utan att skuldbelägga',
+      'Vid akut fara eller pågående brott – ring alltid 112'
     ]
   },
   {
@@ -274,7 +275,8 @@ export const guides: Guide[] = [
       'Minimera spårningen – barnet ska kunna använda enheten utan att sända ut massa information',
       'Hjälp barnet att välja ett anonymt användarnamn (inte "förnamn_efternamn_årtal")',
       'Inga adresser, skolnamn eller telefonnummer bör stå i bio/profil',
-      'Begränsa app-behörigheter (mikrofon, kamera, kontakter) – tillåt bara om absolut nödvändigt'
+      'Begränsa app-behörigheter (mikrofon, kamera, kontakter) – tillåt bara om absolut nödvändigt',
+      'Lär ut att man inte behöver fylla i riktiga uppgifter överallt (gäller förstås inte tjänster där korrekta uppgifter krävs för säkerhet och ansvar, som skola, vård, bank och officiella myndigheter)'
     ]
   },
   {

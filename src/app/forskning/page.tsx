@@ -36,7 +36,7 @@ const researchFindings = [
     color: 'coral',
     findings: [
       'Forskning visar att omfattande skärmanvändning hänger samman med ökad psykisk ohälsa hos unga',
-      'Flitig sociala medier-användning från 10 års ålder ökar missnöje med egen kropp och tecken på ätstörning',
+      'Forskning visar att flitig sociala medier-användning från runt 10 års ålder kan öka risken för kroppsmissnöje och ätstörningsliknande beteenden, särskilt när innehållet kretsar kring kroppsideal och jämförelser',
       'Algoritmerna bryr sig mer om engagemang än åldersanpassning',
       'Algoritmer kan bidra till dålig självkänsla genom perfekta ideal och filtrerade liv på skärmen',
       'Många fastnar lätt i mobilen, vilket drabbar relationer, fysisk aktivitet och sömn'
@@ -63,7 +63,7 @@ const recommendations = [
     recommendations: [
       'Cirka 10–11 timmars sömn per dygn',
       'Mycket fysisk aktivitet',
-      'Högst 1–2 timmars fritids-skärmtid per dag'
+      'Som riktmärke: högst cirka 1–2 timmars fritids-skärmtid per dag, utöver skola'
     ]
   },
   {
