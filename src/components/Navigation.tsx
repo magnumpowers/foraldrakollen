@@ -10,6 +10,7 @@ const navItems = [
   { href: '/guider', label: 'Guider' },
   { href: '/forskning', label: 'Forskning' },
   { href: '/risker', label: 'Risker' },
+  { href: '/om', label: 'Om oss' },
 ]
 
 export function Navigation() {
