@@ -29,19 +29,20 @@ export default function AboutPage() {
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-3xl border border-sand-200 overflow-hidden">
-            {/* Image */}
-            <div className="relative w-full aspect-video bg-gray-100">
-              <Image
-                src="/veckans-ai.jpg"
-                alt="Magnus Paues och Fredrik Hanefalk, skaparna av Veckans AI"
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-
-            {/* Text content */}
             <div className="p-8 md:p-12">
+              {/* Image - centered and square */}
+              <div className="flex justify-center mb-8">
+                <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden shadow-lg">
+                  <Image
+                    src="/veckans-ai.jpg"
+                    alt="Magnus Paues och Fredrik Hanefalk, skaparna av Veckans AI"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+              </div>
+
               <div className="prose prose-lg max-w-none">
                 <p className="text-gray-700 text-lg leading-relaxed mb-6">
                   Föräldrakollen drivs av <strong>Magnus Paues</strong> och <strong>Fredrik Hanefalk</strong>,
