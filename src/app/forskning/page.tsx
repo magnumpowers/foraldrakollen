@@ -92,23 +92,23 @@ const statistics = [
   {
     value: '1 av 4',
     label: 'barn i Sverige har utsatts för groomingförsök online',
-    source: 'Stiftelsen Allmänna barnhuset',
-    sourceUrl: 'https://www.stiftelsen-allmannabarnhuset.se/',
+    source: 'Unga, sex och internet (2021)',
+    sourceUrl: 'https://allmannabarnhuset.se/wp-content/uploads/2022/09/Unga_Sex_Och_Internet_Efter_MeToo_2021.pdf',
     icon: AlertTriangle,
     color: 'coral'
   },
   {
     value: '1–2 tim',
     label: 'rekommenderad max fritids-skärmtid per dag för barn 6–12 år',
-    source: 'Folkhälsomyndigheten',
-    sourceUrl: 'https://www.folkhalsomyndigheten.se/livsvillkor-levnadsvanor/digitala-medier-och-halsa/',
+    source: 'Folkhälsomyndigheten (2024)',
+    sourceUrl: 'https://www.folkhalsomyndigheten.se/contentassets/201463a976054dde8ad7aa8a47861c0a/rekommendationer-digitala-medier-barns-ungas-medieanvandning.pdf',
     icon: Moon,
     color: 'primary'
   },
   {
     value: '60 min',
     label: 'automatisk daglig skärmtidsgräns på TikTok för under 18 år',
-    source: 'TikTok',
+    source: 'TikTok Newsroom (2023)',
     sourceUrl: 'https://newsroom.tiktok.com/sv-se/nya-funktioner-for-ungdomar-och-familjer-pa-tiktok',
     icon: Clock,
     color: 'coral'
@@ -116,7 +116,7 @@ const statistics = [
   {
     value: '16 år',
     label: 'åldersgräns för direktmeddelanden på TikTok',
-    source: 'TikTok',
+    source: 'TikTok Safety',
     sourceUrl: 'https://www.tiktok.com/safety/sv-se/guardians-guide/',
     icon: Users,
     color: 'primary'
@@ -296,40 +296,58 @@ export default function ResearchPage() {
           <h2 className="font-display text-2xl font-bold text-gray-900 mb-6 text-center">
             Källor och vidare läsning
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-3">
             <a
-              href="https://www.folkhalsomyndigheten.se/livsvillkor-levnadsvanor/digitala-medier-och-halsa/"
+              href="https://allmannabarnhuset.se/wp-content/uploads/2022/09/Unga_Sex_Och_Internet_Efter_MeToo_2021.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 p-4 bg-sand-50 rounded-xl border border-sand-200 hover:border-primary-300 transition-colors group"
             >
-              <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors">
-                <ExternalLink className="w-5 h-5 text-primary-500" />
+              <div className="w-10 h-10 bg-coral-100 rounded-lg flex items-center justify-center group-hover:bg-coral-200 transition-colors flex-shrink-0">
+                <ExternalLink className="w-5 h-5 text-coral-500" />
               </div>
               <div>
                 <div className="font-medium text-gray-900 group-hover:text-primary-600 transition-colors">
-                  Folkhälsomyndigheten
+                  Unga, sex och internet efter #metoo (PDF)
                 </div>
                 <div className="text-sm text-gray-500">
-                  Skärmanvändning och hälsa – rekommendationer
+                  Stiftelsen Allmänna barnhuset & Linköpings universitet, 2021 – Källa för grooming-statistik
                 </div>
               </div>
             </a>
             <a
-              href="https://www.stiftelsen-allmannabarnhuset.se/"
+              href="https://www.folkhalsomyndigheten.se/contentassets/201463a976054dde8ad7aa8a47861c0a/rekommendationer-digitala-medier-barns-ungas-medieanvandning.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 p-4 bg-sand-50 rounded-xl border border-sand-200 hover:border-primary-300 transition-colors group"
             >
-              <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors">
+              <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors flex-shrink-0">
                 <ExternalLink className="w-5 h-5 text-primary-500" />
               </div>
               <div>
                 <div className="font-medium text-gray-900 group-hover:text-primary-600 transition-colors">
-                  Stiftelsen Allmänna barnhuset
+                  Rekommendationer för barns digitala medieanvändning (PDF)
                 </div>
                 <div className="text-sm text-gray-500">
-                  Forskning om grooming och barns utsatthet
+                  Folkhälsomyndigheten, september 2024 – Källa för skärmtidsrekommendationer
+                </div>
+              </div>
+            </a>
+            <a
+              href="https://newsroom.tiktok.com/sv-se/nya-funktioner-for-ungdomar-och-familjer-pa-tiktok"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 p-4 bg-sand-50 rounded-xl border border-sand-200 hover:border-primary-300 transition-colors group"
+            >
+              <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors flex-shrink-0">
+                <ExternalLink className="w-5 h-5 text-primary-500" />
+              </div>
+              <div>
+                <div className="font-medium text-gray-900 group-hover:text-primary-600 transition-colors">
+                  TikTok Newsroom – Funktioner för ungdomar och familjer
+                </div>
+                <div className="text-sm text-gray-500">
+                  TikTok, mars 2023 – Källa för 60-minuters skärmtidsgräns
                 </div>
               </div>
             </a>
@@ -339,33 +357,15 @@ export default function ResearchPage() {
               rel="noopener noreferrer"
               className="flex items-center gap-3 p-4 bg-sand-50 rounded-xl border border-sand-200 hover:border-primary-300 transition-colors group"
             >
-              <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors">
+              <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors flex-shrink-0">
                 <ExternalLink className="w-5 h-5 text-primary-500" />
               </div>
               <div>
                 <div className="font-medium text-gray-900 group-hover:text-primary-600 transition-colors">
-                  Mediemyndigheten
+                  Mediemyndighetens föräldrahandledningar
                 </div>
                 <div className="text-sm text-gray-500">
-                  Föräldrahandledningar och säkerhetsinställningar
-                </div>
-              </div>
-            </a>
-            <a
-              href="https://www.tiktok.com/safety/sv-se/guardians-guide/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 bg-sand-50 rounded-xl border border-sand-200 hover:border-primary-300 transition-colors group"
-            >
-              <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors">
-                <ExternalLink className="w-5 h-5 text-primary-500" />
-              </div>
-              <div>
-                <div className="font-medium text-gray-900 group-hover:text-primary-600 transition-colors">
-                  TikTok – Guide för vårdnadshavare
-                </div>
-                <div className="text-sm text-gray-500">
-                  Säkerhetsfunktioner och åldersgränser
+                  Guider för säkerhetsinställningar på olika plattformar
                 </div>
               </div>
             </a>

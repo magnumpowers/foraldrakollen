@@ -74,9 +74,24 @@ const guideAreas = [
 ]
 
 const stats = [
-  { value: '1 av 4', label: 'barn har utsatts för groomingförsök online', source: 'Allmänna barnhuset' },
-  { value: '9-11h', label: 'sömn behöver barn 8-13 år per natt', source: 'Folkhälsomyndigheten' },
-  { value: '60 min', label: 'är TikToks automatiska dagsgräns för barn', source: 'TikTok' },
+  {
+    value: '1 av 4',
+    label: 'barn har utsatts för groomingförsök online',
+    source: 'Unga, sex och internet (2021)',
+    sourceUrl: 'https://allmannabarnhuset.se/wp-content/uploads/2022/09/Unga_Sex_Och_Internet_Efter_MeToo_2021.pdf'
+  },
+  {
+    value: '9-11h',
+    label: 'sömn behöver barn 8-13 år per natt',
+    source: 'Folkhälsomyndigheten (2024)',
+    sourceUrl: 'https://www.folkhalsomyndigheten.se/contentassets/201463a976054dde8ad7aa8a47861c0a/rekommendationer-digitala-medier-barns-ungas-medieanvandning.pdf'
+  },
+  {
+    value: '60 min',
+    label: 'är TikToks automatiska dagsgräns för barn',
+    source: 'TikTok Newsroom (2023)',
+    sourceUrl: 'https://newsroom.tiktok.com/sv-se/nya-funktioner-for-ungdomar-och-familjer-pa-tiktok'
+  },
 ]
 
 export default function Home() {
@@ -134,9 +149,14 @@ export default function Home() {
                 <div className="text-gray-600 text-sm mb-1">
                   {stat.label}
                 </div>
-                <div className="text-xs text-gray-400">
-                  Källa: {stat.source}
-                </div>
+                <a
+                  href={stat.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-gray-400 hover:text-primary-500 transition-colors"
+                >
+                  Källa: {stat.source} ↗
+                </a>
               </div>
             ))}
           </div>
