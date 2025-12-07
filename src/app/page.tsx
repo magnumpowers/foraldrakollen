@@ -74,9 +74,9 @@ const guideAreas = [
 ]
 
 const stats = [
-  { value: '1 av 4', label: 'barn har utsatts för groomingförsök online' },
-  { value: '9-11h', label: 'sömn behöver barn 8-13 år per natt' },
-  { value: '60 min', label: 'är TikToks automatiska dagsgräns för barn' },
+  { value: '1 av 4', label: 'barn har utsatts för groomingförsök online', source: 'Allmänna barnhuset' },
+  { value: '9-11h', label: 'sömn behöver barn 8-13 år per natt', source: 'Folkhälsomyndigheten' },
+  { value: '60 min', label: 'är TikToks automatiska dagsgräns för barn', source: 'TikTok' },
 ]
 
 export default function Home() {
@@ -131,8 +131,11 @@ export default function Home() {
                 <div className="font-display text-3xl font-bold text-primary-600 mb-2">
                   {stat.value}
                 </div>
-                <div className="text-gray-600 text-sm">
+                <div className="text-gray-600 text-sm mb-1">
                   {stat.label}
+                </div>
+                <div className="text-xs text-gray-400">
+                  Källa: {stat.source}
                 </div>
               </div>
             ))}
