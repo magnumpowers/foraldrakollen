@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Nunito } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
@@ -39,6 +40,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="sv" className={`${inter.variable} ${nunito.variable}`}>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-8JB9RTVMVW"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-8JB9RTVMVW');
+          `}
+        </Script>
+      </head>
       <body className="min-h-screen flex flex-col bg-sand-50">
         <Navigation />
         <main className="flex-1">

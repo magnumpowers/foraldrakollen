@@ -14,6 +14,7 @@ export interface Guide {
   keyPoint: string
   platforms: PlatformStep[]
   tips: string[]
+  estimatedTime: string
 }
 
 export const guides: Guide[] = [
@@ -24,6 +25,7 @@ export const guides: Guide[] = [
     shortTitle: 'Skärmtid nattetid',
     priority: 1,
     color: 'primary',
+    estimatedTime: '5 min',
     why: 'God sömn är grundläggande för barns hälsa och humör. Skärmar på kvällen kan störa insomning – både genom stimulerande innehåll och blått ljus. Studier visar att längre skärmtid leder till sämre sömn och fler depressiva symtom hos barn och tonåringar. Barn 8–13 år behöver ungefär 9–11 timmars sömn per natt för att må bra.',
     keyPoint: 'Att stänga av skärmen minst 30–60 minuter före läggdags hjälper barnet varva ned. Forskning pekar på att bara genom att lägga bort mobilen i tid kan ungdomar sova ~20 minuter längre per natt.',
     platforms: [
@@ -95,6 +97,7 @@ export const guides: Guide[] = [
     shortTitle: 'Algoritmiskt innehåll',
     priority: 2,
     color: 'coral',
+    estimatedTime: '5 min',
     why: 'Algoritmiska flöden – såsom TikToks For You, Instagram Reels och YouTube Shorts – är designade för att fånga uppmärksamheten. De matar barnen med oändliga klipp anpassade efter beteende, vilket kan bli mycket beroendeframkallande. Innehållet kan också vara olämpligt eller skevt: algoritmerna bryr sig mer om engagemang än åldersanpassning.',
     keyPoint: 'Myndigheter rekommenderar att för 6–12-åringar undvika appar som styrs av algoritmer (t.ex. TikTok, YouTube) eftersom de kan exponera barn för reklam, falsk information, våld eller osunda ideal.',
     platforms: [
@@ -155,6 +158,7 @@ export const guides: Guide[] = [
     shortTitle: 'Okända kontakter',
     priority: 3,
     color: 'primary',
+    estimatedTime: '3 min',
     why: 'Att skydda barn från kontakt med främlingar online är avgörande. Okända som tar kontakt kan innebära risk för grooming, trakasserier eller bedrägerier. 1 av 4 barn i Sverige har utsatts för groomingförsök online. Barn mår bättre när de endast interagerar med folk de känner och litar på online.',
     keyPoint: 'Genom att begränsa vem som kan skriva till ditt barn minskar du risken att hen exponeras för obehagliga eller farliga situationer.',
     platforms: [
@@ -222,6 +226,7 @@ export const guides: Guide[] = [
     shortTitle: 'Platstjänster',
     priority: 4,
     color: 'coral',
+    estimatedTime: '5 min',
     why: 'Platsdelning och onödig datainsamling kan hota ditt barns integritet. Om appar ständigt spårar var barnet är kan det läcka information om hemadress, skola eller fritidsaktiviteter. I värsta fall kan någon illasinnad få reda på var barnet brukar vara.',
     keyPoint: 'Barn har rätt till sin digitala integritet, och som förälder bör man minimera exponeringen.',
     platforms: [
@@ -286,6 +291,7 @@ export const guides: Guide[] = [
     shortTitle: 'Vuxeninnehåll',
     priority: 5,
     color: 'primary',
+    estimatedTime: '5 min',
     why: 'Internet kryllar av innehåll som inte är lämpligt för barn – pornografi, grovt våld, drogglorifiering, spel om pengar, hat osv. Att utsättas för detta för tidigt kan skada ett barns psykosociala utveckling. Nätporr kan ge en skev bild av relationer och sexualitet.',
     keyPoint: 'Tekniska filter är ett stöd, men inget substitut för att prata med ditt barn. Uppmana barnet att alltid komma till er om hen ser något obehagligt.',
     platforms: [
@@ -356,6 +362,7 @@ export const guides: Guide[] = [
     shortTitle: 'Appgodkännande',
     priority: 6,
     color: 'coral',
+    estimatedTime: '3 min',
     why: 'Barn är nyfikna och kan få höra av kompisar om "coola nya appar" – men inte alla appar är lämpliga. Genom att ha stopp för installationer utan tillstånd ser du till att inga farliga eller dyra appar hamnar på enheten.',
     keyPoint: 'Att du godkänner appar innan installation hjälper dig också hålla koll på barnets digitala liv – du vet vilka tjänster de använder.',
     platforms: [
@@ -394,6 +401,7 @@ export const guides: Guide[] = [
     shortTitle: 'Köp i appar',
     priority: 7,
     color: 'primary',
+    estimatedTime: '3 min',
     why: 'In-app-köp kan leda till oavsiktliga tusenlappar spenderade av barn, eller att barn utvecklar ett osunt förhållande till pengar. Yngre barn har svårt att förstå verkliga kostnader. Loot-lådor och liknande kan trigga beroendebeteenden.',
     keyPoint: 'Förhindra impulsköp. Många föräldrar har blivit överraskade av räkningar på tusentals kronor för att barnet köpt saker i ett spel.',
     platforms: [

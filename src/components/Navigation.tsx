@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { Logo } from './Logo'
 
@@ -15,6 +16,7 @@ const navItems = [
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
 
   return (
     <nav className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-sand-200">
@@ -31,14 +33,18 @@ export function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-4 py-2 rounded-xl text-gray-600 hover:text-primary-600 hover:bg-primary-50 font-medium transition-colors"
+                className={`px-4 py-2 rounded-xl font-medium transition-colors ${
+                  pathname === item.href
+                    ? 'text-primary-600 bg-primary-50 font-semibold'
+                    : 'text-gray-600 hover:text-primary-600 hover:bg-primary-50'
+                }`}
               >
                 {item.label}
               </Link>
             ))}
             <Link
               href="/guider"
-              className="ml-4 px-5 py-2.5 bg-coral-400 text-white rounded-xl font-semibold hover:bg-coral-500 transition-colors shadow-sm hover:shadow-md"
+              className="ml-4 px-5 py-2.5 bg-coral-500 text-white rounded-xl font-semibold hover:bg-coral-600 transition-colors shadow-sm hover:shadow-md"
             >
               Kom igång
             </Link>
@@ -63,7 +69,11 @@ export function Navigation() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className="px-4 py-3 rounded-xl text-gray-600 hover:text-primary-600 hover:bg-primary-50 font-medium transition-colors"
+                  className={`block px-4 py-3 rounded-xl font-medium transition-colors ${
+                    pathname === item.href
+                      ? 'text-primary-600 bg-primary-50 font-semibold'
+                      : 'text-gray-600 hover:text-primary-600 hover:bg-primary-50'
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -71,7 +81,7 @@ export function Navigation() {
               <Link
                 href="/guider"
                 onClick={() => setIsOpen(false)}
-                className="mt-2 px-5 py-3 bg-coral-400 text-white rounded-xl font-semibold hover:bg-coral-500 transition-colors text-center"
+                className="mt-2 px-5 py-3 bg-coral-500 text-white rounded-xl font-semibold hover:bg-coral-600 transition-colors text-center"
               >
                 Kom igång
               </Link>

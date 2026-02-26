@@ -14,9 +14,9 @@
   --color-primary-900: #243d3d;
 
   /* Sekundär - Varm sand/beige */
-  --color-sand-50: #fdfcfa;
+  --color-sand-50: #faf7f2;
   --color-sand-100: #f9f6f0;
-  --color-sand-200: #f5f0e8;
+  --color-sand-200: #e8dfd0;
   --color-sand-300: #ebe3d5;
   --color-sand-400: #d9cdb8;
   --color-sand-500: #c4b496;
@@ -30,12 +30,17 @@
   --color-coral-100: #fdeae5;
   --color-coral-200: #fbd5cc;
   --color-coral-300: #f4b5a6;
-  --color-coral-400: #e8836b;
-  --color-coral-500: #d96a50;
-  --color-coral-600: #c4533a;
-  --color-coral-700: #a3432e;
+  --color-coral-400: #d96340;
+  --color-coral-500: #c4533a;
+  --color-coral-600: #a3432e;
+  --color-coral-700: #8a3624;
   --color-coral-800: #863928;
   --color-coral-900: #6e3125;
+
+  /* Gray - For text */
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-900: #111827;
 
   /* Fonts */
   --font-sans: 'Inter', system-ui, sans-serif;
@@ -50,7 +55,10 @@ html {
 body {
   font-family: var(--font-sans);
   background-color: var(--color-sand-50);
-  color: #2d3748;
+  color: var(--color-gray-600);
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(61, 133, 133, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(232, 131, 107, 0.03) 0%, transparent 50%);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -71,12 +79,27 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Focus styles for accessibility */
 :focus-visible {
-  outline: 2px solid var(--color-primary-400);
-  outline-offset: 2px;
+  outline: 3px solid var(--color-primary-500);
+  outline-offset: 3px;
+  border-radius: 8px;
 }
 
 /* Selection color */
 ::selection {
   background-color: var(--color-primary-200);
   color: var(--color-primary-900);
+}
+
+/* Link styles in prose */
+a:not([class]) {
+  color: var(--color-primary-600);
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary-200);
+  text-underline-offset: 3px;
+  transition: all 0.2s;
+}
+
+a:not([class]):hover {
+  text-decoration-color: var(--color-primary-600);
+  color: var(--color-primary-700);
 }

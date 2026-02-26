@@ -4,7 +4,7 @@ import { Logo } from './Logo'
 
 export function Footer() {
   return (
-    <footer className="bg-primary-800 text-white mt-auto">
+    <footer className="bg-primary-700 text-white mt-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -113,15 +113,25 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-primary-700">
+        <div className="mt-12 pt-8 border-t border-primary-600">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-primary-300 text-sm">
               © {new Date().getFullYear()} Föräldrakollen. Alla rättigheter förbehållna.
             </p>
             <p className="text-primary-300 text-sm flex items-center gap-1">
-              Gjord med <Heart className="w-4 h-4 text-coral-400" /> för svenska föräldrar
+              Gjord med <Heart className="w-4 h-4 text-coral-500" /> för svenska föräldrar
             </p>
           </div>
+          <p className="text-primary-500 text-xs mt-6 text-center opacity-60">
+            Denna sida skapades i samarbete med{' '}
+            <a href="https://cowrite.com/sv/skriva-personligt-brev" className="hover:text-primary-300">
+              Cowrite – AI-powered CV generation
+            </a>{' '}
+            och{' '}
+            <a href="https://ungrind.ai" className="hover:text-primary-300">
+              Ungrind – CRM for Solopreneurs
+            </a>
+          </p>
         </div>
       </div>
     </footer>

@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { ChevronDown, ChevronUp, CheckCircle2, Lightbulb, Apple, Smartphone, Moon, MessageSquareOff, MapPinOff, ShieldAlert, AppWindow, CreditCard } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { ChevronDown, ChevronUp, CheckCircle2, Lightbulb, Apple, Smartphone, Moon, MessageSquareOff, MapPinOff, ShieldAlert, AppWindow, CreditCard, Clock } from 'lucide-react'
 import type { Guide } from '@/lib/guides-data'
 
 interface GuideCardProps {
@@ -35,6 +35,25 @@ export function GuideCard({ guide }: GuideCardProps) {
   const Icon = iconMap[guide.iconName] || Moon
   const isCoralAccent = guide.color === 'coral'
 
+  // Load saved progress on mount
+  useEffect(() => {
+    const saved = localStorage.getItem(`guide-progress-${guide.id}`)
+    if (saved) {
+      try {
+        setCompletedSteps(new Set(JSON.parse(saved)))
+      } catch (e) {
+        // Ignore parse errors
+      }
+    }
+  }, [guide.id])
+
+  // Save progress when it changes
+  useEffect(() => {
+    if (completedSteps.size > 0) {
+      localStorage.setItem(`guide-progress-${guide.id}`, JSON.stringify([...completedSteps]))
+    }
+  }, [completedSteps, guide.id])
+
   const toggleStep = (stepId: string) => {
     const newCompleted = new Set(completedSteps)
     if (newCompleted.has(stepId)) {
@@ -52,12 +71,13 @@ export function GuideCard({ guide }: GuideCardProps) {
   return (
     <div
       id={guide.id}
-      className="bg-white rounded-3xl border border-sand-200 overflow-hidden scroll-mt-24"
+      className="bg-white rounded-2xl border-2 border-sand-200 hover:border-primary-200 transition-colors overflow-hidden scroll-mt-24"
     >
       {/* Header - Always visible */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full p-6 text-left hover:bg-sand-50 transition-colors"
+        className="w-full p-8 text-left hover:bg-sand-50 transition-colors"
+        aria-expanded={isExpanded}
       >
         <div className="flex items-start gap-4">
           <div className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 ${
@@ -77,6 +97,10 @@ export function GuideCard({ guide }: GuideCardProps) {
               }`}>
                 Steg {guide.priority}
               </span>
+              <div className="flex items-center gap-1.5 text-xs text-gray-500">
+                <Clock className="w-3.5 h-3.5" />
+                <span>Ca {guide.estimatedTime}</span>
+              </div>
               {completedCount > 0 && (
                 <span className="text-xs text-gray-500">
                   {completedCount} av {totalSteps} klart
@@ -117,7 +141,7 @@ export function GuideCard({ guide }: GuideCardProps) {
       {isExpanded && (
         <div className="px-6 pb-6 border-t border-sand-100">
           {/* Why section */}
-          <div className="mt-6 p-4 bg-sand-50 rounded-2xl">
+          <div className="mt-6 p-4 bg-sand-50 rounded-2xl border border-sand-200">
             <h3 className="font-semibold text-gray-900 mb-2">Varför är detta viktigt?</h3>
             <p className="text-gray-600 text-sm leading-relaxed">{guide.why}</p>
           </div>
@@ -198,6 +222,19 @@ export function GuideCard({ guide }: GuideCardProps) {
               ))}
             </ul>
           </div>
+
+          {/* Success message when all steps are completed */}
+          {completedCount === totalSteps && totalSteps > 0 && (
+            <div className="mt-6">
+              <div className="bg-green-50 border-2 border-green-300 rounded-2xl p-4 flex items-center gap-3">
+                <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-green-900">Bra jobbat!</p>
+                  <p className="text-sm text-green-700">Du har slutfört alla steg för {guide.title.toLowerCase()}.</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

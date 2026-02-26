@@ -121,14 +121,14 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/guider"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-coral-400 text-white rounded-2xl font-semibold text-lg hover:bg-coral-500 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-coral-500 text-white rounded-xl font-semibold text-lg hover:bg-coral-600 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
                 Börja skydda ditt barn
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <Link
                 href="/forskning"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-gray-700 rounded-2xl font-semibold text-lg hover:bg-sand-100 transition-all border border-sand-300"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-gray-700 rounded-xl font-semibold border-2 border-gray-200 hover:border-gray-300 hover:shadow-md transition-all"
               >
                 <BookOpen className="w-5 h-5" />
                 Läs forskningen
@@ -141,7 +141,7 @@ export default function Home() {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 text-center border border-sand-200"
+                className="group bg-white/70 backdrop-blur-sm rounded-2xl p-6 text-center border-2 border-sand-200 hover:border-primary-300 hover:shadow-lg transition-all cursor-pointer"
               >
                 <div className="font-display text-3xl font-bold text-primary-600 mb-2">
                   {stat.value}
@@ -185,12 +185,12 @@ export default function Home() {
                 <Link
                   key={area.id}
                   href={`/guider#${area.id}`}
-                  className="group bg-white rounded-3xl p-6 border border-sand-200 hover:border-primary-300 hover:shadow-lg transition-all hover:-translate-y-1"
+                  className="group bg-white rounded-2xl p-6 border-2 border-sand-200 hover:border-primary-300 hover:shadow-lg transition-all hover:-translate-y-1"
                 >
                   <div className="flex items-start gap-4">
                     <div className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 ${
                       isCoralAccent
-                        ? 'bg-coral-100 text-coral-500 group-hover:bg-coral-200'
+                        ? 'bg-coral-100 text-coral-600 group-hover:bg-coral-200'
                         : 'bg-primary-100 text-primary-500 group-hover:bg-primary-200'
                     } transition-colors`}>
                       <Icon className="w-6 h-6" />
