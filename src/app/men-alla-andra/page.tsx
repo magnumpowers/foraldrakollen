@@ -92,12 +92,18 @@ export default function MenAllaAndra() {
     return text
   }, [kategori, stats, kommun, shareUrl])
 
+  // Load stats on mount so the map shows immediately
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     if (params.get('kommun')) { setKommun(params.get('kommun')!); setKommunSearch(params.get('kommun')!) }
     if (params.get('skola')) setSkola(params.get('skola')!)
     if (params.get('arskurs')) setArskurs(params.get('arskurs')!)
     if (params.get('klass')) setKlass(params.get('klass')!)
+
+    fetch('/api/men-alla-andra/stats')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data) setStats(data) })
+      .catch(() => {})
   }, [])
 
   async function handleSubmit() {
@@ -127,45 +133,64 @@ export default function MenAllaAndra() {
   return (
     <div>
       {step === 'start' && (
-        <section className="min-h-[80vh] flex items-center pt-8 pb-20">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-coral-50 text-coral-600 rounded-full text-sm font-medium mb-8">
-              <HandHeart className="w-4 h-4" />
-              Du är inte ensam
-            </div>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold text-navy-900 mb-6 leading-[1.1]">
-              &ldquo;Men <span className="text-coral-500">alla andra</span> har...&rdquo;
-            </h1>
-            <p className="text-lg sm:text-xl text-warm-500 mb-4 max-w-2xl mx-auto leading-relaxed">
-              Har ditt barn sagt det? Tryck på knappen. Se hur många andra föräldrar
-              i din kommun, skola och klass som hör exakt samma sak.
-            </p>
-            <p className="text-base text-warm-400 mb-14 max-w-xl mx-auto">
-              Tillsammans är vi starkare. Dela med andra föräldrar och
-              visa att &ldquo;alla andra&rdquo; kanske inte stämmer.
-            </p>
-            <button
-              onClick={() => setStep('kategori')}
-              className="group relative inline-flex items-center justify-center px-14 py-7 bg-coral-500 text-white rounded-full font-bold text-2xl sm:text-3xl hover:bg-coral-600 transition-all shadow-xl shadow-coral-500/25 hover:shadow-2xl hover:-translate-y-1 active:translate-y-0"
-            >
-              Mitt barn sa det just!
-            </button>
-            <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
-              {[
-                { icon: CheckCircle2, label: 'Helt anonymt' },
-                { icon: MapPin, label: 'Per kommun & skola' },
-                { icon: Users, label: 'Stå starka tillsammans' },
-              ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex flex-col items-center gap-2.5 text-warm-400">
-                  <div className="w-11 h-11 rounded-full bg-navy-50 flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-navy-500" />
+        <>
+          <section className="pt-16 sm:pt-24 pb-20 sm:pb-28">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-coral-50 text-coral-600 rounded-full text-sm font-semibold mb-10">
+                <HandHeart className="w-4 h-4" />
+                Du är inte ensam
+              </div>
+              <h1 className="font-display text-5xl sm:text-6xl lg:text-8xl font-extrabold text-navy-900 mb-8 leading-[1.05]">
+                &ldquo;Men <span className="text-coral-500">alla andra</span> har...&rdquo;
+              </h1>
+              <p className="text-xl sm:text-2xl text-warm-500 mb-5 max-w-3xl mx-auto leading-relaxed">
+                Har ditt barn sagt det? Tryck på knappen. Se hur många andra föräldrar
+                i din kommun, skola och klass som hör exakt samma sak.
+              </p>
+              <p className="text-lg text-warm-400 mb-16 max-w-2xl mx-auto">
+                Tillsammans är vi starkare. Dela med andra föräldrar och
+                visa att &ldquo;alla andra&rdquo; kanske inte stämmer.
+              </p>
+              <button
+                onClick={() => setStep('kategori')}
+                className="group relative inline-flex items-center justify-center px-16 py-8 bg-coral-500 text-white rounded-full font-bold text-2xl sm:text-3xl hover:bg-coral-600 transition-all shadow-xl shadow-coral-500/25 hover:shadow-2xl hover:-translate-y-1 active:translate-y-0"
+              >
+                Mitt barn sa det just!
+              </button>
+              <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
+                {[
+                  { icon: CheckCircle2, label: 'Helt anonymt' },
+                  { icon: MapPin, label: 'Per kommun & skola' },
+                  { icon: Users, label: 'Stå starka tillsammans' },
+                ].map(({ icon: Icon, label }) => (
+                  <div key={label} className="flex flex-col items-center gap-3 text-warm-400">
+                    <div className="w-12 h-12 rounded-full bg-navy-50 flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-navy-500" />
+                    </div>
+                    <span className="text-sm font-medium">{label}</span>
                   </div>
-                  <span className="text-sm font-medium">{label}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+
+          {/* Map on start page */}
+          {stats && Object.keys(stats.kommunStats).length > 0 && (
+            <section className="pb-20">
+              <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="bg-warm-50 rounded-[2rem] p-6 sm:p-8 border border-warm-100">
+                  <h2 className="font-display text-2xl font-bold text-navy-900 mb-2 text-center">
+                    Här rapporterar föräldrar just nu
+                  </h2>
+                  <p className="text-warm-500 text-center mb-6">
+                    {stats.total} {stats.total === 1 ? 'förälder' : 'föräldrar'} i {stats.kommunCount} {stats.kommunCount === 1 ? 'kommun' : 'kommuner'} har hört &ldquo;men alla andra har...&rdquo;
+                  </p>
+                  <SwedenMap kommunStats={stats.kommunStats} />
+                </div>
+              </div>
+            </section>
+          )}
+        </>
       )}
 
       {step === 'kategori' && (
