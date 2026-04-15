@@ -1,7 +1,9 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import { HjalpAttSvara } from '@/components/HjalpAttSvara'
 import {
   Share2,
   MapPin,
@@ -15,6 +17,11 @@ import {
   Check,
 } from 'lucide-react'
 import { kommuner } from '@/lib/kommuner'
+
+const SwedenMap = dynamic(() => import('@/components/SwedenMap'), {
+  ssr: false,
+  loading: () => <div className="h-[420px] bg-warm-50 rounded-[1.5rem] animate-pulse" />,
+})
 
 const kategorier = [
   { id: 'mobil', label: 'En mobil', icon: '📱', color: 'bg-blue-50 text-blue-700 border-blue-100 hover:border-blue-300 hover:bg-blue-100' },
@@ -269,6 +276,22 @@ export default function MenAllaAndra() {
                 </div>
               </div>
             )}
+            {/* Map */}
+            {stats && Object.keys(stats.kommunStats).length > 0 && (
+              <div className="bg-white rounded-[2rem] p-6 border border-warm-100 mb-6">
+                <h3 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-center gap-2">
+                  <MapPin className="w-5 h-5 text-navy-500" />
+                  Var i Sverige rapporterar föräldrar?
+                </h3>
+                <SwedenMap kommunStats={stats.kommunStats} highlightKommun={kommun} />
+              </div>
+            )}
+
+            {/* Help section */}
+            <div className="mb-6">
+              <HjalpAttSvara />
+            </div>
+
             <div className="bg-gradient-to-br from-coral-50 to-coral-100/30 rounded-[2rem] p-8 border border-coral-100 mb-10">
               <h3 className="font-display text-2xl font-bold text-warm-800 mb-3 text-center">Dela med föräldragruppen!</h3>
               <p className="text-warm-500 text-center mb-6">Skicka länken i klassens WhatsApp-grupp. Ju fler som rapporterar, desto tydligare blir bilden.</p>
