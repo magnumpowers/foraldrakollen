@@ -1,393 +1,79 @@
-import {
-  BookOpen,
-  Brain,
-  Moon,
-  Heart,
-  TrendingDown,
-  Clock,
-  Users,
-  ExternalLink,
-  AlertTriangle,
-  CheckCircle2
-} from 'lucide-react'
+import { BookOpen, Brain, Moon, Heart, Clock, Users, ExternalLink, AlertTriangle, CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'
 
-export const metadata = {
-  title: 'Forskning om skärmtid | Föräldrakollen',
-  description: 'Vad säger forskningen om barns skärmanvändning? Läs om sambandet mellan skärmtid och psykisk hälsa, sömn och social utveckling.',
-}
+export const metadata = { title: 'Forskning om skärmtid | Föräldrakollen', description: 'Vad säger forskningen om barns skärmanvändning?' }
 
-const researchFindings = [
-  {
-    icon: Moon,
-    title: 'Sömn och skärmtid',
-    color: 'primary',
-    findings: [
-      'Längre skärmtid leder till sämre sömn och fler depressiva symtom hos barn och tonåringar',
-      'Barn 8–13 år behöver ungefär 9–11 timmars sömn per natt för att må bra',
-      'Bara genom att lägga bort mobilen i tid kan ungdomar sova ~20 minuter längre per natt',
-      'Skärmar på kvällen stör insomning – både genom stimulerande innehåll och blått ljus',
-      'Skärmtid sent på kvällen konkurrerar med sömnen och kan försämra skolprestationer och humör nästa dag'
-    ]
-  },
-  {
-    icon: Brain,
-    title: 'Psykisk hälsa',
-    color: 'coral',
-    findings: [
-      'Forskning visar att omfattande skärmanvändning hänger samman med ökad psykisk ohälsa hos unga',
-      'Forskning visar att flitig sociala medier-användning från runt 10 års ålder kan öka risken för kroppsmissnöje och ätstörningsliknande beteenden, särskilt när innehållet kretsar kring kroppsideal och jämförelser',
-      'Algoritmerna bryr sig mer om engagemang än åldersanpassning',
-      'Algoritmer kan bidra till dålig självkänsla genom perfekta ideal och filtrerade liv på skärmen',
-      'Många fastnar lätt i mobilen, vilket drabbar relationer, fysisk aktivitet och sömn'
-    ]
-  },
-  {
-    icon: Heart,
-    title: 'Social utveckling',
-    color: 'primary',
-    findings: [
-      'Barn mår bättre när de endast interagerar med folk de känner och litar på online',
-      'Den öppna dialogen mellan förälder och barn är avgörande för digital trygghet',
-      'Engagerat föräldraskap minskar risken för skärmberoende och att barnet fastnar i olämpligt material',
-      'Många barn drar sig för att berätta om jobbiga saker av rädsla eller skuld – öppen dialog är nyckeln',
-      'Att prata regelbundet om vad barnet gör online bygger förtroende'
-    ]
-  }
+const findings = [
+  { icon: Moon, title: 'Sömn och skärmtid', items: ['Längre skärmtid leder till sämre sömn och fler depressiva symtom','Barn 8–13 år behöver 9–11 timmars sömn per natt','Bara genom att lägga bort mobilen i tid kan ungdomar sova ~20 min längre','Skärmar på kvällen stör insomning genom stimulerande innehåll och blått ljus','Skärmtid sent på kvällen kan försämra skolprestationer och humör'] },
+  { icon: Brain, title: 'Psykisk hälsa', items: ['Omfattande skärmanvändning hänger samman med ökad psykisk ohälsa','Sociala medier från 10 års ålder kan öka risken för kroppsmissnöje','Algoritmerna bryr sig mer om engagemang än åldersanpassning','Algoritmer kan bidra till dålig självkänsla genom perfekta ideal','Många fastnar lätt i mobilen, vilket drabbar relationer och sömn'] },
+  { icon: Heart, title: 'Social utveckling', items: ['Barn mår bättre när de interagerar med folk de känner online','Öppen dialog mellan förälder och barn är avgörande','Engagerat föräldraskap minskar risken för skärmberoende','Många barn drar sig för att berätta av rädsla eller skuld','Regelbundna samtal om onlinelivet bygger förtroende'] },
 ]
 
-const recommendations = [
-  {
-    source: 'Folkhälsomyndigheten',
-    target: 'Barn 6–12 år',
-    recommendations: [
-      'Cirka 10–11 timmars sömn per dygn',
-      'Mycket fysisk aktivitet',
-      'Som riktmärke: högst cirka 1–2 timmars fritids-skärmtid per dag, utöver skola'
-    ]
-  },
-  {
-    source: 'Svenska myndigheter',
-    target: 'Barn 6–12 år',
-    recommendations: [
-      'Undvik appar som styrs av algoritmer (t.ex. TikTok, YouTube)',
-      'Risk för exponering av reklam, falsk information, våld eller osunda ideal',
-      'Välj åldersanpassade appar utan algoritmstyrning eller reklam'
-    ]
-  },
-  {
-    source: 'Plattformarnas åldersgränser',
-    target: 'Barn under 13 år',
-    recommendations: [
-      'TikTok: 13-årsgräns',
-      'Instagram: 13-årsgräns',
-      'Snapchat: 13-årsgräns',
-      'YouTube: 13-årsgräns (YouTube Kids för yngre)',
-      'Appar med 13+ är inte anpassade för yngre barn'
-    ]
-  }
-]
-
-const statistics = [
-  {
-    value: '1 av 4',
-    label: 'barn i Sverige har utsatts för groomingförsök online',
-    source: 'Unga, sex och internet (2021)',
-    sourceUrl: 'https://allmannabarnhuset.se/wp-content/uploads/2022/09/Unga_Sex_Och_Internet_Efter_MeToo_2021.pdf',
-    icon: AlertTriangle,
-    color: 'coral'
-  },
-  {
-    value: '1–2 tim',
-    label: 'rekommenderad max fritids-skärmtid per dag för barn 6–12 år',
-    source: 'Folkhälsomyndigheten (2024)',
-    sourceUrl: 'https://www.folkhalsomyndigheten.se/contentassets/201463a976054dde8ad7aa8a47861c0a/rekommendationer-digitala-medier-barns-ungas-medieanvandning.pdf',
-    icon: Moon,
-    color: 'primary'
-  },
-  {
-    value: '60 min',
-    label: 'automatisk daglig skärmtidsgräns på TikTok för under 18 år',
-    source: 'TikTok Newsroom (2023)',
-    sourceUrl: 'https://newsroom.tiktok.com/sv-se/nya-funktioner-for-ungdomar-och-familjer-pa-tiktok',
-    icon: Clock,
-    color: 'coral'
-  },
-  {
-    value: '16 år',
-    label: 'åldersgräns för direktmeddelanden på TikTok',
-    source: 'TikTok Safety',
-    sourceUrl: 'https://www.tiktok.com/safety/sv-se/guardians-guide/',
-    icon: Users,
-    color: 'primary'
-  }
+const stats = [
+  { value: '1 av 4', label: 'barn har utsatts för groomingförsök', source: 'Unga, sex och internet (2021)', url: 'https://allmannabarnhuset.se/wp-content/uploads/2022/09/Unga_Sex_Och_Internet_Efter_MeToo_2021.pdf', icon: AlertTriangle },
+  { value: '1–2 tim', label: 'rekommenderad max skärmtid/dag', source: 'Folkhälsomyndigheten (2024)', url: 'https://www.folkhalsomyndigheten.se/contentassets/201463a976054dde8ad7aa8a47861c0a/rekommendationer-digitala-medier-barns-ungas-medieanvandning.pdf', icon: Moon },
+  { value: '60 min', label: 'TikToks dagsgräns för <18', source: 'TikTok Newsroom (2023)', url: 'https://newsroom.tiktok.com/sv-se/nya-funktioner-for-ungdomar-och-familjer-pa-tiktok', icon: Clock },
+  { value: '16 år', label: 'åldersgräns för DM på TikTok', source: 'TikTok Safety', url: 'https://www.tiktok.com/safety/sv-se/guardians-guide/', icon: Users },
 ]
 
 export default function ResearchPage() {
   return (
-    <div className="min-h-screen bg-sand-50">
-      {/* Hero */}
-      <section className="bg-gradient-to-b from-primary-50 to-sand-50 py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-6">
-              <BookOpen className="w-4 h-4" />
-              Forskningsbaserat
-            </div>
-            <h1 className="font-display text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-              Vad säger forskningen?
-            </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Här sammanfattar vi den forskning som ligger till grund för våra rekommendationer.
-              Kunskap är första steget till att fatta informerade beslut om ditt barns digitala liv.
-            </p>
-          </div>
+    <div>
+      <section className="pt-16 pb-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-navy-50 text-navy-600 rounded-full text-sm font-medium mb-6"><BookOpen className="w-4 h-4" />Forskningsbaserat</div>
+          <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-navy-900 mb-4">Vad säger forskningen?</h1>
+          <p className="text-lg text-warm-500 max-w-2xl mx-auto">Kunskap är första steget till informerade beslut om ditt barns digitala liv.</p>
         </div>
       </section>
 
-      {/* Key Statistics */}
-      <section className="py-12 -mt-8">
+      <section className="pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {statistics.map((stat, index) => {
-              const Icon = stat.icon
-              return (
-                <a
-                  key={index}
-                  href={stat.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white rounded-2xl p-4 border border-sand-200 text-center hover:border-primary-300 hover:shadow-md transition-all group"
-                >
-                  <div className={`w-10 h-10 mx-auto rounded-xl flex items-center justify-center mb-3 ${
-                    stat.color === 'coral' ? 'bg-coral-100' : 'bg-primary-100'
-                  }`}>
-                    <Icon className={`w-5 h-5 ${
-                      stat.color === 'coral' ? 'text-coral-500' : 'text-primary-500'
-                    }`} />
-                  </div>
-                  <div className={`font-display text-2xl font-bold mb-1 ${
-                    stat.color === 'coral' ? 'text-coral-600' : 'text-primary-600'
-                  }`}>
-                    {stat.value}
-                  </div>
-                  <div className="text-xs text-gray-600 leading-tight mb-2">
-                    {stat.label}
-                  </div>
-                  <div className="text-[10px] text-gray-400 group-hover:text-primary-500 transition-colors">
-                    Källa: {stat.source}
-                  </div>
-                </a>
-              )
-            })}
+            {stats.map((s, i) => { const Icon = s.icon; return (
+              <a key={i} href={s.url} target="_blank" rel="noopener noreferrer" className="bg-warm-50 rounded-2xl p-5 text-center hover:bg-navy-50 transition-all group">
+                <div className="w-10 h-10 mx-auto rounded-xl flex items-center justify-center mb-3 bg-navy-50 group-hover:bg-navy-100"><Icon className="w-5 h-5 text-navy-500" /></div>
+                <div className="font-display text-2xl font-extrabold text-navy-700 mb-1">{s.value}</div>
+                <div className="text-xs text-warm-500 leading-tight mb-2">{s.label}</div>
+                <div className="text-[10px] text-warm-400 group-hover:text-navy-500">{s.source} &rarr;</div>
+              </a>
+            )})}
           </div>
         </div>
       </section>
 
-      {/* Research Findings */}
+      <section className="py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5">
+          <h2 className="font-display text-2xl font-bold text-navy-900 text-center mb-6">Forskningsresultat</h2>
+          {findings.map((s, i) => { const Icon = s.icon; return (
+            <div key={i} className="bg-white rounded-2xl border border-warm-100 overflow-hidden">
+              <div className="flex items-center gap-3 px-6 py-4 bg-warm-50 border-b border-warm-100">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-navy-50"><Icon className="w-5 h-5 text-navy-500" /></div>
+                <h3 className="font-display font-bold text-lg text-warm-800">{s.title}</h3>
+              </div>
+              <div className="p-6"><ul className="space-y-3">{s.items.map((f, j) => (<li key={j} className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5 text-navy-400" /><span className="text-warm-600">{f}</span></li>))}</ul></div>
+            </div>
+          )})}
+        </div>
+      </section>
+
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-2xl font-bold text-gray-900 mb-8 text-center">
-            Forskningsresultat
-          </h2>
-          <div className="space-y-6">
-            {researchFindings.map((section, index) => {
-              const Icon = section.icon
-              const isCoralAccent = section.color === 'coral'
-
-              return (
-                <div
-                  key={index}
-                  className="bg-white rounded-3xl border border-sand-200 overflow-hidden"
-                >
-                  <div className={`flex items-center gap-3 px-6 py-4 border-b ${
-                    isCoralAccent ? 'bg-coral-50 border-coral-100' : 'bg-primary-50 border-primary-100'
-                  }`}>
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                      isCoralAccent ? 'bg-coral-100' : 'bg-primary-100'
-                    }`}>
-                      <Icon className={`w-5 h-5 ${
-                        isCoralAccent ? 'text-coral-500' : 'text-primary-500'
-                      }`} />
-                    </div>
-                    <h3 className="font-display font-bold text-lg text-gray-900">
-                      {section.title}
-                    </h3>
-                  </div>
-                  <div className="p-6">
-                    <ul className="space-y-3">
-                      {section.findings.map((finding, findingIndex) => (
-                        <li key={findingIndex} className="flex items-start gap-3">
-                          <CheckCircle2 className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
-                            isCoralAccent ? 'text-coral-400' : 'text-primary-400'
-                          }`} />
-                          <span className="text-gray-700">{finding}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Official Recommendations */}
-      <section className="py-12 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-2xl font-bold text-gray-900 mb-8 text-center">
-            Officiella rekommendationer
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {recommendations.map((rec, index) => (
-              <div
-                key={index}
-                className="bg-sand-50 rounded-2xl p-6 border border-sand-200"
-              >
-                <div className="text-sm font-medium text-primary-600 mb-1">{rec.source}</div>
-                <div className="font-display font-bold text-gray-900 mb-4">{rec.target}</div>
-                <ul className="space-y-2">
-                  {rec.recommendations.map((item, itemIndex) => (
-                    <li key={itemIndex} className="flex items-start gap-2 text-sm text-gray-600">
-                      <span className="text-primary-400 mt-1">•</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* The Balance */}
-      <section className="py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-primary-600 to-primary-700 rounded-3xl p-8 text-white">
-            <h2 className="font-display text-2xl font-bold mb-4 text-center">
-              Balansen är nyckeln
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-              <div>
-                <h3 className="font-semibold text-primary-100 mb-3">Det handlar inte om förbud</h3>
-                <p className="text-primary-100 text-sm leading-relaxed">
-                  Målet är inte att totalförbjuda roliga klipp eller sociala medier, utan att hjälpa ditt barn
-                  att få en balanserad mediediet. Ett par förvalda YouTube-kanaler eller en Netflix-profil
-                  med barnläge ger mer kontrollerat nöje än att låta algoritmerna härja fritt.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-primary-100 mb-3">Dialog före kontroll</h3>
-                <p className="text-primary-100 text-sm leading-relaxed">
-                  Tekniska inställningar är ett stöd, men det viktigaste skyddet är en öppen relation
-                  där barnet vågar prata med dig. Prata om innehållet ni ser – om barnet stöter på något
-                  konstigt, var öppen och diskutera det utan att skuldbelägga.
-                </p>
-              </div>
+          <div className="bg-navy-800 rounded-[2rem] p-9 text-center">
+            <h2 className="font-display text-2xl font-bold text-white mb-4">Balansen är nyckeln</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6 text-left">
+              <div><h3 className="font-semibold text-navy-100 mb-2">Det handlar inte om förbud</h3><p className="text-navy-300 text-sm leading-relaxed">Målet är att hjälpa ditt barn att få en balanserad mediediet. Förvalda kanaler ger mer kontroll än fria algoritmer.</p></div>
+              <div><h3 className="font-semibold text-navy-100 mb-2">Dialog före kontroll</h3><p className="text-navy-300 text-sm leading-relaxed">Det viktigaste skyddet är en öppen relation. Prata om innehållet — diskutera utan att skuldbelägga.</p></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Sources */}
-      <section className="py-12 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-2xl font-bold text-gray-900 mb-6 text-center">
-            Källor och vidare läsning
-          </h2>
-          <div className="space-y-3">
-            <a
-              href="https://allmannabarnhuset.se/wp-content/uploads/2022/09/Unga_Sex_Och_Internet_Efter_MeToo_2021.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 bg-sand-50 rounded-xl border border-sand-200 hover:border-primary-300 transition-colors group"
-            >
-              <div className="w-10 h-10 bg-coral-100 rounded-lg flex items-center justify-center group-hover:bg-coral-200 transition-colors flex-shrink-0">
-                <ExternalLink className="w-5 h-5 text-coral-500" />
-              </div>
-              <div>
-                <div className="font-medium text-gray-900 group-hover:text-primary-600 transition-colors">
-                  Unga, sex och internet efter #metoo (PDF)
-                </div>
-                <div className="text-sm text-gray-500">
-                  Stiftelsen Allmänna barnhuset & Linköpings universitet, 2021 – Källa för grooming-statistik
-                </div>
-              </div>
-            </a>
-            <a
-              href="https://www.folkhalsomyndigheten.se/contentassets/201463a976054dde8ad7aa8a47861c0a/rekommendationer-digitala-medier-barns-ungas-medieanvandning.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 bg-sand-50 rounded-xl border border-sand-200 hover:border-primary-300 transition-colors group"
-            >
-              <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors flex-shrink-0">
-                <ExternalLink className="w-5 h-5 text-primary-500" />
-              </div>
-              <div>
-                <div className="font-medium text-gray-900 group-hover:text-primary-600 transition-colors">
-                  Rekommendationer för barns digitala medieanvändning (PDF)
-                </div>
-                <div className="text-sm text-gray-500">
-                  Folkhälsomyndigheten, september 2024 – Källa för skärmtidsrekommendationer
-                </div>
-              </div>
-            </a>
-            <a
-              href="https://newsroom.tiktok.com/sv-se/nya-funktioner-for-ungdomar-och-familjer-pa-tiktok"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 bg-sand-50 rounded-xl border border-sand-200 hover:border-primary-300 transition-colors group"
-            >
-              <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors flex-shrink-0">
-                <ExternalLink className="w-5 h-5 text-primary-500" />
-              </div>
-              <div>
-                <div className="font-medium text-gray-900 group-hover:text-primary-600 transition-colors">
-                  TikTok Newsroom – Funktioner för ungdomar och familjer
-                </div>
-                <div className="text-sm text-gray-500">
-                  TikTok, mars 2023 – Källa för 60-minuters skärmtidsgräns
-                </div>
-              </div>
-            </a>
-            <a
-              href="https://mediemyndigheten.se/barn-och-unga/for-vuxna/foraldraguider/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 bg-sand-50 rounded-xl border border-sand-200 hover:border-primary-300 transition-colors group"
-            >
-              <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center group-hover:bg-primary-200 transition-colors flex-shrink-0">
-                <ExternalLink className="w-5 h-5 text-primary-500" />
-              </div>
-              <div>
-                <div className="font-medium text-gray-900 group-hover:text-primary-600 transition-colors">
-                  Mediemyndighetens föräldrahandledningar
-                </div>
-                <div className="text-sm text-gray-500">
-                  Guider för säkerhetsinställningar på olika plattformar
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-display text-2xl font-bold text-gray-900 mb-4">
-            Redo att börja?
-          </h2>
-          <p className="text-gray-600 mb-6">
-            Nu när du vet varför det är viktigt – ta steget och ställ in skydden på ditt barns enheter.
-          </p>
-          <Link
-            href="/guider"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-coral-400 text-white rounded-2xl font-semibold text-lg hover:bg-coral-500 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-          >
-            Gå till guiderna
-          </Link>
+          <h2 className="font-display text-2xl font-bold text-navy-900 mb-4">Redo att börja?</h2>
+          <p className="text-warm-500 mb-6">Nu när du vet varför — ta steget och ställ in skydden.</p>
+          <Link href="/guider" className="inline-flex items-center gap-2 px-8 py-4 bg-navy-800 text-white rounded-full font-semibold text-lg hover:bg-navy-700 transition-all shadow-lg shadow-navy-800/20">Gå till guiderna</Link>
         </div>
       </section>
     </div>

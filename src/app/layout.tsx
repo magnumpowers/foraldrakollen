@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Nunito } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { Navigation } from '@/components/Navigation'
@@ -8,12 +8,7 @@ import { Footer } from '@/components/Footer'
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-  display: 'swap',
-})
-
-const nunito = Nunito({
-  subsets: ['latin'],
-  variable: '--font-nunito',
+  weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
 })
 
@@ -23,7 +18,12 @@ export const metadata: Metadata = {
   keywords: ['barn säkerhet', 'föräldrakontroll', 'skärmtid', 'TikTok', 'Instagram', 'Snapchat', 'digital uppfostran', 'näthat', 'grooming'],
   authors: [{ name: 'Föräldrakollen' }],
   icons: {
-    icon: '/icon.svg',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
   },
   openGraph: {
     title: 'Föräldrakollen | Skydda ditt barn på nätet',
@@ -33,32 +33,18 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="sv" className={`${inter.variable} ${nunito.variable}`}>
+    <html lang="sv" className={inter.variable}>
       <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-8JB9RTVMVW"
-          strategy="afterInteractive"
-        />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-8JB9RTVMVW" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-8JB9RTVMVW');
-          `}
+          {`window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-8JB9RTVMVW');`}
         </Script>
       </head>
-      <body className="min-h-screen flex flex-col bg-sand-50">
+      <body className="min-h-screen flex flex-col bg-white">
         <Navigation />
-        <main className="flex-1">
-          {children}
-        </main>
+        <main className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>
