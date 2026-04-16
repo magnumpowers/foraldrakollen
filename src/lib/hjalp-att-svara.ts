@@ -24,8 +24,8 @@ export const hjalpResponses: HjalpResponse[] = [
     icon: '📱',
     barnSager: 'Det är ju bara en app',
     duKanSvara: 'Appar som TikTok och Instagram är designade av världens smartaste ingenjörer för att göra dig beroende. De triggar dopamin — hjärnans belöningssystem — varje gång du får en like eller scrollar till nästa video. Din unga hjärna är extra känslig för det. En genomsnittlig mobilanvändare kollar sin telefon 350 gånger per dag.',
-    fakta: 'Forskaren Sissela Nutley vid Uppsala universitet visar att svenska ungdomar har i snitt ~7 timmars skärmtid per dag utöver skolan. Den genomsnittliga mobilanvändaren tar upp telefonen 350 gånger per dag.',
-    kalla: { text: 'Sissela Nutley, Uppsala universitet', url: 'https://www.uu.se/institution/lakemedelskemi/farmaceutiska-fakulteten/nyheter/arkiv/sissela-nutley-ger-unga-verktyg-att-ta-kontroll-over-sin-skarmtid.html' },
+    fakta: 'Forskaren Sissela Nutley vid Karolinska Institutet visar att svenska ungdomar har i snitt ~7 timmars skärmtid per dag utöver skolan. Den genomsnittliga mobilanvändaren tar upp telefonen 350 gånger per dag.',
+    kalla: { text: 'Sissela Nutley, Karolinska Institutet', url: 'https://www.uu.se/institution/lakemedelskemi/farmaceutiska-fakulteten/nyheter/arkiv/sissela-nutley-ger-unga-verktyg-att-ta-kontroll-over-sin-skarmtid.html' },
   },
   {
     id: 'fokus',
@@ -34,7 +34,7 @@ export const hjalpResponses: HjalpResponse[] = [
     barnSager: 'Jag kan plugga med mobilen bredvid',
     duKanSvara: 'Forskning visar att bara ha mobilen inom räckhåll — även i tyst läge — gör att du lär dig sämre. Det beror på att en del av din hjärna är upptagen med att tänka på mobilen istället för att fokusera på det du gör. Lägg den i ett annat rum när du pluggar!',
     fakta: 'Studier visar att elever som har sin mobil i flygplansläge men inom räckhåll lär sig sämre än de som har telefonen i ett annat rum.',
-    kalla: { text: 'Sissela Nutley, Uppsala universitet', url: 'https://www.uu.se/institution/lakemedelskemi/farmaceutiska-fakulteten/nyheter/arkiv/sissela-nutley-ger-unga-verktyg-att-ta-kontroll-over-sin-skarmtid.html' },
+    kalla: { text: 'Sissela Nutley, Karolinska Institutet', url: 'https://www.uu.se/institution/lakemedelskemi/farmaceutiska-fakulteten/nyheter/arkiv/sissela-nutley-ger-unga-verktyg-att-ta-kontroll-over-sin-skarmtid.html' },
   },
   {
     id: 'aldersgranser',
@@ -59,9 +59,9 @@ export const hjalpResponses: HjalpResponse[] = [
     title: 'Ge ditt barn verktyg — inte förbud',
     icon: '💪',
     barnSager: 'Du är så kontrollerande',
-    duKanSvara: 'Jag vill inte kontrollera dig — jag vill ge dig verktyg att kontrollera din egen skärmtid. Forskaren Sissela Nutley vid Uppsala universitet jobbar med att ge unga precis de verktygen. Det handlar om att DU ska bestämma över mobilen, inte tvärtom.',
+    duKanSvara: 'Jag vill inte kontrollera dig — jag vill ge dig verktyg att kontrollera din egen skärmtid. Forskaren Sissela Nutley vid Karolinska Institutet jobbar med att ge unga precis de verktygen. Det handlar om att DU ska bestämma över mobilen, inte tvärtom.',
     fakta: 'Sissela Nutley förespråkar kunskapsbaserade lösningar snarare än rena restriktioner — att ge unga praktiska verktyg och beteendestrategier för ett hållbart digitalt liv.',
-    kalla: { text: 'Sissela Nutley, Uppsala universitet', url: 'https://www.uu.se/institution/lakemedelskemi/farmaceutiska-fakulteten/nyheter/arkiv/sissela-nutley-ger-unga-verktyg-att-ta-kontroll-over-sin-skarmtid.html' },
+    kalla: { text: 'Sissela Nutley, Karolinska Institutet', url: 'https://www.uu.se/institution/lakemedelskemi/farmaceutiska-fakulteten/nyheter/arkiv/sissela-nutley-ger-unga-verktyg-att-ta-kontroll-over-sin-skarmtid.html' },
   },
   {
     id: 'somn',
