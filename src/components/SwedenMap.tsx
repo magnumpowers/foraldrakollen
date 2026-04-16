@@ -40,10 +40,10 @@ export default function SwedenMap({ kommunStats, highlightKommun }: SwedenMapPro
                 center={pos}
                 radius={Math.min(6 + Math.sqrt(count) * 3, 25)}
                 pathOptions={{
-                  fillColor: isHighlight ? '#3A5D94' : '#E07055',
+                  fillColor: isHighlight ? '#1B2D4F' : '#4A7FB5',
                   color: '#ffffff',
                   weight: 2,
-                  fillOpacity: isHighlight ? 0.9 : 0.7,
+                  fillOpacity: isHighlight ? 0.95 : 0.75,
                 }}
               >
                 <Tooltip>

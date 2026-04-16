@@ -136,12 +136,12 @@ export default function MenAllaAndra() {
         <>
           <section className="pt-16 sm:pt-24 pb-20 sm:pb-28">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-coral-50 text-coral-600 rounded-full text-sm font-semibold mb-10">
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-navy-50 text-navy-600 rounded-full text-sm font-semibold mb-10">
                 <HandHeart className="w-4 h-4" />
                 Du är inte ensam
               </div>
               <h1 className="font-display text-5xl sm:text-6xl lg:text-8xl font-extrabold text-navy-900 mb-8 leading-[1.05]">
-                &ldquo;Men <span className="text-coral-500">alla andra</span> har...&rdquo;
+                &ldquo;Men <span className="text-navy-400">alla andra</span> har...&rdquo;
               </h1>
               <p className="text-xl sm:text-2xl text-warm-500 mb-5 max-w-3xl mx-auto leading-relaxed">
                 Har ditt barn sagt det? Tryck på knappen. Se hur många andra föräldrar
@@ -153,7 +153,7 @@ export default function MenAllaAndra() {
               </p>
               <button
                 onClick={() => setStep('kategori')}
-                className="group relative inline-flex items-center justify-center px-16 py-8 bg-coral-500 text-white rounded-full font-bold text-2xl sm:text-3xl hover:bg-coral-600 transition-all shadow-xl shadow-coral-500/25 hover:shadow-2xl hover:-translate-y-1 active:translate-y-0"
+                className="group relative inline-flex items-center justify-center px-16 py-8 bg-navy-800 text-white rounded-full font-bold text-2xl sm:text-3xl hover:bg-navy-700 transition-all shadow-xl shadow-navy-800/25 hover:shadow-2xl hover:-translate-y-1 active:translate-y-0"
               >
                 Mitt barn sa det just!
               </button>
@@ -222,7 +222,7 @@ export default function MenAllaAndra() {
               <ArrowLeft className="w-4 h-4" /> Tillbaka
             </button>
             <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-coral-50 text-coral-600 rounded-full text-sm font-medium mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-navy-50 text-navy-600 rounded-full text-sm font-medium mb-4">
                 {kategorier.find(k => k.id === kategori)?.icon} &ldquo;Alla andra har {kategorier.find(k => k.id === kategori)?.label.toLowerCase()}&rdquo;
               </div>
               <h2 className="font-display text-3xl font-extrabold text-navy-900 mb-3">Var bor ni?</h2>
@@ -258,7 +258,7 @@ export default function MenAllaAndra() {
                 </div>
               </div>
               {error && <p className="text-red-600 text-sm bg-red-50 px-4 py-2.5 rounded-xl">{error}</p>}
-              <button onClick={handleSubmit} disabled={!kommun || loading} className="w-full py-4 bg-coral-500 text-white rounded-xl font-bold text-xl hover:bg-coral-600 transition-all shadow-md shadow-coral-500/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3">
+              <button onClick={handleSubmit} disabled={!kommun || loading} className="w-full py-4 bg-navy-800 text-white rounded-full font-bold text-xl hover:bg-navy-700 transition-all shadow-md shadow-navy-800/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3">
                 {loading ? <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin"></div> : <><span>Jag har hört det!</span><ArrowRight className="w-5 h-5" /></>}
               </button>
             </div>
@@ -282,7 +282,7 @@ export default function MenAllaAndra() {
                   <h3 className="font-display text-xl font-bold text-navy-900 mb-5 flex items-center gap-2"><MapPin className="w-5 h-5 text-navy-500" />I {kommun}</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="bg-white rounded-2xl p-5 text-center shadow-sm"><div className="font-display text-4xl font-extrabold text-navy-700">{stats.local.count}</div><div className="text-sm text-warm-500 mt-1">föräldrar i {kommun}</div></div>
-                    {skola && <div className="bg-white rounded-2xl p-5 text-center shadow-sm"><div className="font-display text-4xl font-extrabold text-coral-500">{stats.local.skolaCount}</div><div className="text-sm text-warm-500 mt-1">på {skola}</div></div>}
+                    {skola && <div className="bg-white rounded-2xl p-5 text-center shadow-sm"><div className="font-display text-4xl font-extrabold text-navy-500">{stats.local.skolaCount}</div><div className="text-sm text-warm-500 mt-1">på {skola}</div></div>}
                     {(arskurs || klass) && <div className="bg-white rounded-2xl p-5 text-center shadow-sm"><div className="font-display text-4xl font-extrabold text-warm-700">{stats.local.klassCount}</div><div className="text-sm text-warm-500 mt-1">i {[arskurs, klass].filter(Boolean).join(' ')}</div></div>}
                   </div>
                 </div>
@@ -317,13 +317,13 @@ export default function MenAllaAndra() {
               <HjalpAttSvara />
             </div>
 
-            <div className="bg-gradient-to-br from-coral-50 to-coral-100/30 rounded-[2rem] p-8 border border-coral-100 mb-10">
+            <div className="bg-gradient-to-br from-navy-50 to-navy-100/30 rounded-[2rem] p-8 border border-navy-100 mb-10">
               <h3 className="font-display text-2xl font-bold text-warm-800 mb-3 text-center">Dela med föräldragruppen!</h3>
               <p className="text-warm-500 text-center mb-6">Skicka länken i klassens WhatsApp-grupp. Ju fler som rapporterar, desto tydligare blir bilden.</p>
               <div className="bg-white rounded-xl p-4 mb-4 text-sm text-warm-600 border border-warm-100"><p className="whitespace-pre-line">{shareText}</p></div>
               <div className="flex flex-col sm:flex-row gap-3">
-                <button onClick={handleShare} className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-coral-500 text-white rounded-xl font-semibold hover:bg-coral-600 transition-all shadow-sm"><Share2 className="w-5 h-5" />Dela</button>
-                <button onClick={handleCopy} className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-white text-warm-700 rounded-xl font-semibold border border-warm-200 hover:bg-warm-50 transition-all">{copied ? <Check className="w-5 h-5 text-green-600" /> : <Copy className="w-5 h-5" />}{copied ? 'Kopierat!' : 'Kopiera text'}</button>
+                <button onClick={handleShare} className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-navy-800 text-white rounded-full font-semibold hover:bg-navy-700 transition-all shadow-sm"><Share2 className="w-5 h-5" />Dela</button>
+                <button onClick={handleCopy} className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-white text-warm-700 rounded-full font-semibold border border-warm-200 hover:bg-warm-50 transition-all">{copied ? <Check className="w-5 h-5 text-green-600" /> : <Copy className="w-5 h-5" />}{copied ? 'Kopierat!' : 'Kopiera text'}</button>
               </div>
             </div>
             <div className="bg-warm-50 rounded-[2rem] p-8 border border-warm-100 text-center">
