@@ -13,9 +13,7 @@ export default function GuidesPage() {
     <div>
       <section className="pt-16 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-navy-50 text-navy-600 rounded-full text-sm font-medium mb-6">
-            <Shield className="w-4 h-4" />7 områden att skydda
-          </div>
+          <p className="etikett mb-5">7 områden att skydda</p>
           <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-navy-900 mb-4">Steg-för-steg-guider</h1>
           <p className="text-lg text-warm-500 max-w-2xl mx-auto">Prioriterade från viktigast till förebyggande. Bocka av stegen allt eftersom.</p>
         </div>
@@ -24,9 +22,9 @@ export default function GuidesPage() {
       <section className="sticky top-20 z-40 bg-white/90 backdrop-blur-md border-b border-warm-100 py-3">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 overflow-x-auto pb-1">
-            <span className="text-sm text-warm-400 flex-shrink-0">Hoppa till:</span>
+            <span className="text-sm text-warm-500 flex-shrink-0">Hoppa till:</span>
             {guides.map((g) => (
-              <Link key={g.id} href={`#${g.id}`} className="flex-shrink-0 px-3 py-1.5 text-sm font-medium rounded-full bg-warm-50 text-warm-600 hover:bg-navy-50 hover:text-navy-700 transition-colors border border-warm-100">
+              <Link key={g.id} href={`#${g.id}`} className="flex-shrink-0 px-3 py-1.5 text-sm font-medium rounded-md bg-paper text-warm-700 hover:text-ink hover:border-ink transition-colors border border-rule">
                 {g.priority}. {g.shortTitle}
               </Link>
             ))}
@@ -52,7 +50,7 @@ export default function GuidesPage() {
                       ['Stänga av platsdelning','Ja','Ja','N/A','Ja','Ja','Ja'],
                       ['Begränsa algoritmflöde','Delvis','Delvis','Ja','Ja','Delvis','Delvis'],
                       ['Blockera okända meddelanden','Ja','Delvis','Ja','Ja','Ja','Ja'],
-                      ['Skärmfri nattetid','Ja','Ja','Nej','Ja','Nej','Nej'],
+                      ['Skärmfri nattetid','Ja','Ja','Delvis','Ja','Nej','Nej'],
                       ['Kräva app-godkännande','Ja','Ja','N/A','N/A','N/A','N/A'],
                       ['Inaktivera köp i appar','Ja','Ja','Ja','Ja','Ja','Ja'],
                       ['Filtrera vuxet innehåll','Ja','Ja','Ja','Ja','Delvis','Delvis'],
@@ -61,7 +59,7 @@ export default function GuidesPage() {
                         <td className="py-3 px-4 text-warm-600">{row[0]}</td>
                         {row.slice(1).map((v, j) => (
                           <td key={j} className="py-3 px-3 text-center">
-                            <span className={`font-medium ${v === 'Ja' ? 'text-navy-600' : v === 'Delvis' ? 'text-amber-600' : 'text-warm-400'}`}>{v}</span>
+                            <span className={`font-medium ${v === 'Ja' ? 'text-navy-600' : v === 'Delvis' ? 'text-amber-600' : 'text-warm-500'}`}>{v}</span>
                           </td>
                         ))}
                       </tr>
@@ -75,7 +73,7 @@ export default function GuidesPage() {
             </div>
           </div>
 
-          <div className="mt-12 p-8 bg-navy-50 rounded-[2rem] text-center">
+          <div className="mt-12 p-8 bg-paper-dark rounded-md text-center">
             <h3 className="font-display text-xl font-bold text-navy-900 mb-3">Kom ihåg det viktigaste</h3>
             <p className="text-warm-500 max-w-2xl mx-auto">Ingen inställning är 100% säker — det viktigaste skyddet är en <strong className="text-warm-700">öppen relation</strong> där barnet vågar prata med dig om nätet.</p>
           </div>

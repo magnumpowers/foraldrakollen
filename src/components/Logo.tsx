@@ -17,7 +17,7 @@ export function Logo({ className = '', size = 'md' }: LogoProps) {
     <div className={`flex items-center ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/logo.png"
+        src="/logo-160.webp"
         alt="Föräldrakollen.nu"
         height={h}
         className="flex-shrink-0"

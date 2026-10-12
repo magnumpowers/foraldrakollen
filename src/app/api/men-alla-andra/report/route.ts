@@ -1,16 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getSupabase } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabase-server'
+import { kommuner } from '@/lib/kommuner'
 
 const VALID_KATEGORIER = ['mobil', 'tiktok', 'instagram', 'snapchat', 'youtube', 'annat']
 
+// Trimma fritext och kapa längden så att skräp inte hamnar i statistiken
+const clean = (v: unknown, max: number) =>
+  typeof v === 'string' ? v.trim().replace(/\s+/g, ' ').slice(0, max) || null : null
+
 export async function POST(request: NextRequest) {
   try {
-    const supabase = getSupabase()
-    const body = await request.json()
-    const { kommun, skola, klass, kategori, fingerprint } = body
+    let body: Record<string, unknown>
+    try {
+      body = await request.json()
+    } catch {
+      return NextResponse.json({ error: 'Ogiltig förfrågan' }, { status: 400 })
+    }
+    const supabase = getSupabaseAdmin()
+    const kommun = typeof body.kommun === 'string' ? body.kommun.trim() : ''
+    const kategori = typeof body.kategori === 'string' ? body.kategori : ''
+    const skola = clean(body.skola, 80)
+    const klass = clean(body.klass, 20)
+    const fingerprint = clean(body.fingerprint, 100)
 
     if (!kommun || !kategori) {
       return NextResponse.json({ error: 'Kommun och kategori krävs' }, { status: 400 })
+    }
+
+    if (!(kommuner as readonly string[]).includes(kommun)) {
+      return NextResponse.json({ error: 'Ogiltig kommun' }, { status: 400 })
     }
 
     if (!VALID_KATEGORIER.includes(kategori)) {
@@ -37,10 +55,10 @@ export async function POST(request: NextRequest) {
 
     const { error } = await supabase.from('men_alla_andra').insert({
       kommun,
-      skola: skola || null,
-      klass: klass || null,
+      skola,
+      klass,
       kategori,
-      fingerprint: fingerprint || null,
+      fingerprint,
     })
 
     if (error) {

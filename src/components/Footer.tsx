@@ -1,10 +1,9 @@
 import Link from 'next/link'
-import { Heart } from 'lucide-react'
 import { Logo } from './Logo'
 
 export function Footer() {
   return (
-    <footer className="bg-warm-50 border-t border-warm-100 mt-auto">
+    <footer className="bg-paper-dark border-t border-rule mt-auto">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
@@ -12,8 +11,8 @@ export function Footer() {
               <Logo size="lg" />
             </Link>
             <p className="text-warm-500 max-w-md leading-relaxed">
-              Vi hjälper föräldrar att skydda sina barn på nätet med forskningsbaserade
-              guider och praktiska verktyg. Tillsammans skapar vi en tryggare digital värld.
+              Guider för föräldrar som vill hjälpa sina barn att vara trygga på nätet.
+              Gratis och utan reklam.
             </p>
           </div>
 
@@ -39,7 +38,7 @@ export function Footer() {
             <h3 className="font-display font-bold text-lg mb-4 text-navy-900">Resurser</h3>
             <ul className="space-y-3">
               {[
-                { href: '/men-alla-andra', label: '"Men alla andra..."' },
+                { href: '/men-alla-andra', label: '„Men alla andra…”' },
                 { href: '/forskning', label: 'Forskning' },
                 { href: '/risker', label: 'Risker online' },
               ].map(item => (
@@ -58,13 +57,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 pt-8 border-t border-warm-200">
+        <div className="mt-14 pt-8 border-t border-rule">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-warm-400 text-sm">
+            <p className="text-warm-500 text-sm">
               &copy; {new Date().getFullYear()} Föräldrakollen
             </p>
-            <p className="text-warm-400 text-sm flex items-center gap-1.5">
-              Gjord med <Heart className="w-4 h-4 text-coral-500" /> för svenska föräldrar
+            <p className="text-warm-500 text-sm">
+              Ett projekt av Magnus Paues och Fredrik Hanefalk, <a href="https://veckans.ai" className="underline underline-offset-2 hover:text-ink">Veckans AI</a>
             </p>
           </div>
         </div>

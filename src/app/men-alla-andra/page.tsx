@@ -10,7 +10,6 @@ import {
   Users,
   ArrowRight,
   CheckCircle2,
-  HandHeart,
   School,
   Copy,
   Check,
@@ -100,9 +99,10 @@ function AnimatedCount({ value, duration = 1200 }: { value: number; duration?: n
       const progress = Math.min((ts - start) / duration, 1)
       const eased = 1 - Math.pow(1 - progress, 3)
       setDisplay(Math.round(startValue + (value - startValue) * eased))
-      if (progress < 1) requestAnimationFrame(step)
+      if (progress < 1) raf = requestAnimationFrame(step)
     }
-    requestAnimationFrame(step)
+    let raf = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(raf)
   }, [value, duration])
   return <>{display.toLocaleString('sv-SE')}</>
 }
@@ -121,14 +121,15 @@ export default function MenAllaAndra() {
   const [copied, setCopied] = useState(false)
   const [showKommunList, setShowKommunList] = useState(false)
   const [livePreview, setLivePreview] = useState<number | null>(null)
+  const [hi, setHi] = useState(0)
 
   const kategoriRef = useRef<HTMLDivElement>(null)
   const platsRef = useRef<HTMLDivElement>(null)
   const doneRef = useRef<HTMLDivElement>(null)
 
   const filteredKommuner = useMemo(() => {
-    if (!kommunSearch) return []
-    const search = kommunSearch.toLowerCase()
+    const search = kommunSearch.trim().toLowerCase()
+    if (!search) return []
     return kommuner.filter(k => k.toLowerCase().startsWith(search)).slice(0, 8)
   }, [kommunSearch])
 
@@ -154,7 +155,8 @@ export default function MenAllaAndra() {
   // Load stats on mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    if (params.get('kommun')) { setKommun(params.get('kommun')!); setKommunSearch(params.get('kommun')!) }
+    const k = params.get('kommun')
+    if (k && (kommuner as readonly string[]).includes(k)) { setKommun(k); setKommunSearch(k) }
     if (params.get('skola')) setSkola(params.get('skola')!)
     if (params.get('arskurs')) setArskurs(params.get('arskurs')!)
     if (params.get('klass')) setKlass(params.get('klass')!)
@@ -190,12 +192,15 @@ export default function MenAllaAndra() {
     setLoading(true); setError('')
     try {
       const fp = getFingerprint()
-      const klassLabel = [arskurs, klass].filter(Boolean).join(' ')
+      // "Åk 5" + "5B" ska bli "5B", inte "5 5B"
+      const k = klass.trim()
+      const klassLabel = k && arskurs && k.startsWith(arskurs) ? k : [arskurs, k].filter(Boolean).join(' ')
       const res = await fetch('/api/men-alla-andra/report', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ kommun, skola: skola || null, klass: klassLabel || null, kategori, fingerprint: fp }),
       })
+      if (res.status >= 500) throw new Error('nere')
       if (res.status !== 429 && !res.ok) throw new Error('Kunde inte spara')
       const statsParams = new URLSearchParams({ kommun })
       if (skola) statsParams.set('skola', skola)
@@ -204,7 +209,11 @@ export default function MenAllaAndra() {
       if (statsRes.ok) setStats(await statsRes.json())
       setStep('done')
       scrollTo(doneRef)
-    } catch { setError('Något gick fel. Försök igen.') }
+    } catch (e) {
+      setError(e instanceof Error && e.message === 'nere'
+        ? 'Vi kan inte spara just nu. Försök igen om en stund – och du är inte ensam om att ha hört det.'
+        : 'Något gick fel. Försök igen.')
+    }
     finally { setLoading(false) }
   }
 
@@ -222,35 +231,32 @@ export default function MenAllaAndra() {
     <div>
       {/* ============ HERO ============ */}
       <section className="pt-16 sm:pt-24 pb-20 sm:pb-28 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 20% 10%, rgba(74,127,181,0.08), transparent 60%), radial-gradient(circle at 90% 80%, rgba(224,112,85,0.05), transparent 50%)' }} />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-navy-50 text-navy-700 rounded-full text-sm font-semibold mb-10">
-            <HandHeart className="w-4 h-4" />
+          <p className="etikett mb-8">
             {stats && stats.total > 0
               ? <>{stats.total.toLocaleString('sv-SE')} {stats.total === 1 ? 'förälder har' : 'föräldrar har'} känt igen sig</>
               : 'Du är inte ensam'}
-          </div>
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-8xl font-extrabold text-navy-900 mb-8 leading-[1.05] text-balance">
-            &ldquo;Men <span className="text-navy-400">alla andra</span> har...&rdquo;
+          </p>
+          <h1 className="font-display text-5xl sm:text-6xl lg:text-8xl text-ink mb-8 leading-[1.05] text-balance">
+            &bdquo;Men <em className="italic text-coral-600">alla andra</em> har&hellip;&rdquo;
           </h1>
           <p className="text-xl sm:text-2xl text-warm-500 mb-5 max-w-3xl mx-auto leading-relaxed">
             Har ditt barn sagt det? Tryck på knappen. Se hur många andra föräldrar
             i din kommun, skola och klass som hör exakt samma sak.
           </p>
-          <p className="text-lg text-warm-400 mb-14 max-w-2xl mx-auto">
-            Tillsammans är vi starkare. Dela med andra föräldrar och
-            visa att &ldquo;alla andra&rdquo; kanske inte stämmer.
+          <p className="text-lg text-warm-500 mb-12 max-w-2xl mx-auto">
+            Ofta visar det sig att &bdquo;alla andra&rdquo; är betydligt färre än barnet tror.
           </p>
           <button
             onClick={startFlow}
-            className="group relative inline-flex items-center justify-center px-16 py-7 sm:py-8 bg-navy-800 text-white rounded-full font-bold text-2xl sm:text-3xl hover:bg-navy-700 transition-all shadow-2xl shadow-navy-800/25 hover:shadow-navy-800/40 hover:-translate-y-1 active:translate-y-0"
+            className="group relative inline-flex items-center justify-center px-8 sm:px-12 py-5 sm:py-6 bg-ink text-paper rounded-md font-semibold text-xl sm:text-2xl hover:bg-navy-700 transition-colors"
           >
             Mitt barn sa det just!
           </button>
           {stats && stats.kommunStats && Object.keys(stats.kommunStats).length > 0 && (
             <button
               onClick={() => document.getElementById('karta')?.scrollIntoView({ behavior: 'smooth' })}
-              className="block mt-6 mx-auto text-warm-400 hover:text-navy-600 text-sm font-medium transition-colors"
+              className="block mt-6 mx-auto text-warm-500 hover:text-navy-600 text-sm font-medium transition-colors"
             >
               eller visa bara statistiken <ArrowDown className="w-4 h-4 inline ml-1" />
             </button>
@@ -259,10 +265,10 @@ export default function MenAllaAndra() {
       </section>
 
       {/* ============ KATEGORI ============ */}
-      <section ref={kategoriRef} className={`py-20 sm:py-24 bg-warm-50/40 border-y border-warm-100 transition-opacity ${step === 'start' ? 'opacity-40' : 'opacity-100'}`}>
+      <section ref={kategoriRef} className="py-20 sm:py-24 bg-warm-50/40 border-y border-warm-100">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12 max-w-2xl">
-            <div className="text-xs font-bold uppercase tracking-[0.14em] text-navy-500 mb-3">Steg 1 av 2</div>
+            <div className="etikett mb-3">Steg 1 av 2</div>
             <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-navy-900 leading-[1.1] mb-4 text-balance">
               Vad sa ditt barn?
             </h2>
@@ -279,12 +285,11 @@ export default function MenAllaAndra() {
                 <button
                   key={kat.id}
                   onClick={() => selectKategori(kat.id)}
-                  disabled={step === 'start'}
-                  className={`group relative flex flex-col gap-5 p-7 rounded-[2rem] border bg-white text-left transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-navy-50 ${
+                  className={`group relative flex flex-col gap-5 p-7 rounded-md border bg-white text-left transition-colors ${
                     isSelected
-                      ? 'border-navy-400 ring-4 ring-navy-100 shadow-xl shadow-navy-100/50'
+                      ? 'border-ink ring-2 ring-coral-300'
                       : 'border-warm-100 hover:border-navy-200'
-                  } ${step === 'start' ? 'cursor-default hover:translate-y-0 hover:shadow-none' : 'cursor-pointer'}`}
+                  } cursor-pointer`}
                 >
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl transition-colors ${kat.tint}`}>
                     {kat.icon}
@@ -322,14 +327,14 @@ export default function MenAllaAndra() {
               </div>
               <button
                 onClick={() => { setStep('kategori'); scrollTo(kategoriRef) }}
-                className="text-sm text-warm-400 hover:text-navy-600 underline underline-offset-2 transition-colors"
+                className="text-sm text-warm-500 hover:text-navy-600 underline underline-offset-2 transition-colors"
               >
                 ändra
               </button>
             </div>
 
             <div className="mb-10">
-              <div className="text-xs font-bold uppercase tracking-[0.14em] text-navy-500 mb-3">Steg 2 av 2</div>
+              <div className="etikett mb-3">Steg 2 av 2</div>
               <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-navy-900 leading-[1.1] mb-4 text-balance">
                 Bara två saker till.
               </h2>
@@ -340,7 +345,7 @@ export default function MenAllaAndra() {
 
             <div className="space-y-5">
               {/* Kommun card */}
-              <div className="bg-white rounded-[2rem] p-7 sm:p-8 border border-warm-100 shadow-sm">
+              <div className="bg-white rounded-md p-7 sm:p-8 border border-warm-100 shadow-sm">
                 <h3 className="font-display text-2xl font-bold text-warm-800 mb-1.5">
                   Var bor ni?
                 </h3>
@@ -351,23 +356,46 @@ export default function MenAllaAndra() {
                   <input
                     type="text"
                     value={kommunSearch}
-                    onChange={(e) => { setKommunSearch(e.target.value); setKommun(''); setShowKommunList(true) }}
+                    onChange={(e) => {
+                      const v = e.target.value
+                      setKommunSearch(v)
+                      const exact = kommuner.find(k => k.toLowerCase() === v.trim().toLowerCase())
+                      setKommun(exact ?? '')
+                      setShowKommunList(true)
+                      setHi(0)
+                    }}
                     onFocus={() => setShowKommunList(true)}
-                    placeholder="Sök bland 290 kommuner..."
-                    className="w-full px-6 py-5 rounded-2xl border-2 border-warm-200 bg-white text-xl placeholder:text-warm-300 focus:border-navy-400 focus:ring-4 focus:ring-navy-100 focus:outline-none transition-all"
+                    onBlur={() => setTimeout(() => setShowKommunList(false), 150)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'ArrowDown') { e.preventDefault(); setHi(h => Math.min(h + 1, filteredKommuner.length - 1)) }
+                      if (e.key === 'ArrowUp') { e.preventDefault(); setHi(h => Math.max(h - 1, 0)) }
+                      if (e.key === 'Enter' && filteredKommuner[hi]) { e.preventDefault(); const k = filteredKommuner[hi]; setKommun(k); setKommunSearch(k); setShowKommunList(false) }
+                      if (e.key === 'Escape') setShowKommunList(false)
+                    }}
+                    role="combobox"
+                    aria-label="Kommun"
+                    aria-expanded={showKommunList && filteredKommuner.length > 0}
+                    aria-controls="kommun-lista"
+                    aria-autocomplete="list"
+                    autoComplete="off"
+                    placeholder="Sök bland 290 kommuner…"
+                    className="w-full px-6 py-5 rounded-md border-2 border-rule bg-white text-xl placeholder:text-warm-500 focus:border-ink focus:outline-none transition-colors"
                   />
                   {kommun && (
                     <CheckCircle2 className="absolute right-5 top-1/2 -translate-y-1/2 w-6 h-6 text-navy-500" />
                   )}
                   {showKommunList && filteredKommuner.length > 0 && (
-                    <div className="absolute z-10 w-full mt-2 bg-white rounded-2xl border border-warm-200 shadow-xl max-h-64 overflow-y-auto">
-                      {filteredKommuner.map((k) => (
+                    <div id="kommun-lista" role="listbox" className="absolute z-10 w-full mt-2 bg-white rounded-md border border-rule shadow-lg max-h-64 overflow-y-auto">
+                      {filteredKommuner.map((k, i) => (
                         <button
                           key={k}
+                          role="option"
+                          aria-selected={i === hi}
+                          onMouseDown={(e) => e.preventDefault()}
                           onClick={() => { setKommun(k); setKommunSearch(k); setShowKommunList(false) }}
-                          className="w-full text-left px-5 py-4 hover:bg-navy-50 text-warm-700 transition-colors flex items-center gap-2.5 first:rounded-t-2xl last:rounded-b-2xl"
+                          className={`w-full text-left px-5 py-4 hover:bg-paper-dark text-warm-700 transition-colors flex items-center gap-2.5 ${i === hi ? 'bg-paper-dark' : ''}`}
                         >
-                          <MapPin className="w-4 h-4 text-warm-400" />
+                          <MapPin className="w-4 h-4 text-warm-500" />
                           {k}
                         </button>
                       ))}
@@ -383,7 +411,7 @@ export default function MenAllaAndra() {
 
               {/* Skola + Klass card */}
               {kommun && (
-                <div className="bg-white rounded-[2rem] p-7 sm:p-8 border border-warm-100 shadow-sm">
+                <div className="bg-white rounded-md p-7 sm:p-8 border border-warm-100 shadow-sm">
                   <h3 className="font-display text-2xl font-bold text-warm-800 mb-1.5">
                     Vilken skola och klass?
                   </h3>
@@ -393,26 +421,29 @@ export default function MenAllaAndra() {
 
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-semibold text-warm-600 mb-2 flex items-center gap-1.5">
+                      <label htmlFor="skola" className="block text-sm font-semibold text-warm-600 mb-2 flex items-center gap-1.5">
                         <School className="w-4 h-4" /> Skola
                       </label>
                       <input
+                        id="skola"
+                        maxLength={80}
                         type="text"
                         value={skola}
                         onChange={(e) => setSkola(e.target.value)}
                         placeholder="T.ex. Vikingaskolan"
-                        className="w-full px-5 py-4 rounded-xl border border-warm-200 bg-white text-lg placeholder:text-warm-300 focus:border-navy-400 focus:ring-4 focus:ring-navy-100 focus:outline-none transition-all"
+                        className="w-full px-5 py-4 rounded-xl border border-warm-200 bg-white text-lg placeholder:text-warm-500 focus:border-navy-400 focus:ring-4 focus:ring-navy-100 focus:outline-none transition-all"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-warm-600 mb-2">Årskurs</label>
-                      <div className="flex flex-wrap gap-2">
+                      <div id="ak-label" className="block text-sm font-semibold text-warm-600 mb-2">Årskurs</div>
+                      <div className="flex flex-wrap gap-2" role="group" aria-labelledby="ak-label">
                         {arskurser.map((ak) => (
                           <button
                             key={ak}
                             onClick={() => setArskurs(arskurs === ak ? '' : ak)}
-                            className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
+                            aria-pressed={arskurs === ak}
+                            className={`px-4 py-2 rounded-md font-semibold text-sm transition-all ${
                               arskurs === ak
                                 ? 'bg-navy-800 text-white shadow-md'
                                 : 'bg-warm-50 text-warm-600 hover:bg-warm-100 border border-warm-200'
@@ -425,13 +456,15 @@ export default function MenAllaAndra() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-warm-600 mb-2">Klass (valfritt)</label>
+                      <label htmlFor="klass" className="block text-sm font-semibold text-warm-600 mb-2">Klass (valfritt)</label>
                       <input
+                        id="klass"
+                        maxLength={20}
                         type="text"
                         value={klass}
                         onChange={(e) => setKlass(e.target.value)}
-                        placeholder="T.ex. 5B"
-                        className="w-full px-5 py-4 rounded-xl border border-warm-200 bg-white text-lg placeholder:text-warm-300 focus:border-navy-400 focus:ring-4 focus:ring-navy-100 focus:outline-none transition-all"
+                        placeholder="T.ex. B"
+                        className="w-full px-5 py-4 rounded-xl border border-warm-200 bg-white text-lg placeholder:text-warm-500 focus:border-navy-400 focus:ring-4 focus:ring-navy-100 focus:outline-none transition-all"
                       />
                     </div>
                   </div>
@@ -440,14 +473,14 @@ export default function MenAllaAndra() {
 
               {/* Error */}
               {error && (
-                <div className="px-5 py-3 bg-coral-50 border border-coral-200 text-coral-700 rounded-2xl text-sm font-medium">
+                <div className="px-5 py-3 bg-coral-50 border border-coral-200 text-coral-600 rounded-2xl text-sm font-medium">
                   {error}
                 </div>
               )}
 
               {/* Submit CTA */}
               {kommun && (
-                <div className="bg-gradient-to-br from-navy-800 to-navy-900 text-white rounded-[2rem] p-7 sm:p-8 flex flex-col sm:flex-row items-center gap-6 justify-between shadow-xl shadow-navy-900/25">
+                <div className="bg-ink text-paper rounded-md p-7 sm:p-8 flex flex-col sm:flex-row items-center gap-6 justify-between">
                   <div className="text-center sm:text-left">
                     <h3 className="font-display text-xl sm:text-2xl font-bold mb-1">
                       Redo att se siffrorna?
@@ -459,7 +492,7 @@ export default function MenAllaAndra() {
                   <button
                     onClick={handleSubmit}
                     disabled={loading}
-                    className="px-8 py-4 bg-white text-navy-800 rounded-full font-bold text-lg shadow-lg hover:bg-cream-50 hover:-translate-y-0.5 transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                    className="px-7 py-3.5 bg-paper text-ink rounded-md font-semibold text-lg hover:bg-warm-50 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                   >
                     {loading ? (
                       <div className="flex gap-1">
@@ -490,7 +523,7 @@ export default function MenAllaAndra() {
               </div>
               {stats.local.count >= 2 ? (
                 <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-navy-900 leading-[1.08] text-balance">
-                  <span className="text-navy-400">
+                  <span className="text-navy-500">
                     <AnimatedCount value={stats.local.count} />
                   </span>{' '}
                   föräldrar i {kommun} har hört &ldquo;men alla andra har {selectedKatLabel}&rdquo;.
@@ -498,7 +531,7 @@ export default function MenAllaAndra() {
               ) : (
                 <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy-900 leading-[1.1] text-balance">
                   Du är den första vi hör från i {kommun}.
-                  <br /><span className="text-navy-400">Dela länken — så blir ni fler.</span>
+                  <br /><span className="text-navy-500">Dela länken — så blir ni fler.</span>
                 </h1>
               )}
               {stats.local.count >= 10 && (
@@ -508,14 +541,14 @@ export default function MenAllaAndra() {
 
             {/* Stat cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-              <div className="bg-gradient-to-br from-navy-50 to-white rounded-[2rem] p-8 text-center border border-navy-100">
+              <div className="bg-gradient-to-br from-navy-50 to-white rounded-md p-8 text-center border border-navy-100">
                 <div className="font-display text-5xl sm:text-6xl font-extrabold text-navy-700 mb-2">
                   <AnimatedCount value={stats.local.count} />
                 </div>
                 <div className="text-sm text-warm-500">i {kommun}</div>
               </div>
               {skola && (
-                <div className="bg-white rounded-[2rem] p-8 text-center border border-warm-100 shadow-sm">
+                <div className="bg-white rounded-md p-8 text-center border border-warm-100 shadow-sm">
                   <div className="font-display text-5xl sm:text-6xl font-extrabold text-navy-500 mb-2">
                     <AnimatedCount value={stats.local.skolaCount} />
                   </div>
@@ -523,7 +556,7 @@ export default function MenAllaAndra() {
                 </div>
               )}
               {(arskurs || klass) && (
-                <div className="bg-white rounded-[2rem] p-8 text-center border border-warm-100 shadow-sm">
+                <div className="bg-white rounded-md p-8 text-center border border-warm-100 shadow-sm">
                   <div className="font-display text-5xl sm:text-6xl font-extrabold text-warm-600 mb-2">
                     <AnimatedCount value={stats.local.klassCount} />
                   </div>
@@ -533,7 +566,7 @@ export default function MenAllaAndra() {
             </div>
 
             {/* Share card - promoted above map */}
-            <div className="bg-gradient-to-br from-navy-800 to-navy-900 text-white rounded-[2rem] p-8 sm:p-10 mb-10 shadow-xl shadow-navy-900/20">
+            <div className="bg-gradient-to-br from-navy-800 to-navy-900 text-white rounded-md p-8 sm:p-10 mb-10 shadow-xl shadow-navy-900/20">
               <h3 className="font-display text-2xl sm:text-3xl font-bold mb-3 text-balance">
                 Skicka vidare till föräldragruppen
               </h3>
@@ -544,7 +577,7 @@ export default function MenAllaAndra() {
                 <p className="whitespace-pre-line">{shareText}</p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
-                <button onClick={handleShare} className="flex-1 flex items-center justify-center gap-2 py-4 bg-white text-navy-800 rounded-full font-bold hover:bg-cream-50 transition-all shadow-md">
+                <button onClick={handleShare} className="flex-1 flex items-center justify-center gap-2 py-4 bg-white text-navy-800 rounded-full font-bold hover:bg-warm-50 transition-all shadow-md">
                   <Share2 className="w-5 h-5" /> Dela nu
                 </button>
                 <button onClick={handleCopy} className="flex-1 flex items-center justify-center gap-2 py-4 bg-navy-700 text-white rounded-full font-semibold border border-navy-600 hover:bg-navy-600 transition-all">
@@ -556,7 +589,7 @@ export default function MenAllaAndra() {
 
             {/* Map */}
             {Object.keys(stats.kommunStats).length > 0 && (
-              <div className="bg-white rounded-[2rem] p-6 sm:p-8 border border-warm-100 mb-10">
+              <div className="bg-white rounded-md p-6 sm:p-8 border border-warm-100 mb-10">
                 <div className="mb-5">
                   <h3 className="font-display text-2xl font-bold text-navy-900 mb-1 flex items-center gap-2">
                     <MapPin className="w-5 h-5 text-navy-500" />
@@ -570,7 +603,7 @@ export default function MenAllaAndra() {
 
             {/* Category bar chart */}
             {Object.keys(stats.kategoriStats).length > 0 && (
-              <div className="bg-white rounded-[2rem] p-6 sm:p-8 border border-warm-100 mb-10">
+              <div className="bg-white rounded-md p-6 sm:p-8 border border-warm-100 mb-10">
                 <h3 className="font-display text-2xl font-bold text-navy-900 mb-5">Mest rapporterat i hela Sverige</h3>
                 <div className="space-y-3">
                   {Object.entries(stats.kategoriStats)
@@ -607,7 +640,7 @@ export default function MenAllaAndra() {
 
             {/* Footer CTAs */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Link href="/guider" className="bg-warm-50 rounded-[2rem] p-7 border border-warm-100 hover:border-navy-200 hover:shadow-md transition-all group">
+              <Link href="/guider" className="bg-warm-50 rounded-md p-7 border border-warm-100 hover:border-navy-200 hover:shadow-md transition-all group">
                 <h3 className="font-display text-xl font-bold text-navy-900 mb-2">Se våra guider</h3>
                 <p className="text-warm-500 text-sm mb-4">Konkreta steg för att skydda ditt barn online.</p>
                 <span className="inline-flex items-center gap-1.5 text-navy-600 font-semibold text-sm group-hover:text-navy-800 transition-colors">
@@ -615,8 +648,8 @@ export default function MenAllaAndra() {
                 </span>
               </Link>
               <button
-                onClick={() => { setStep('start'); setKategori(''); setKommun(''); setKommunSearch(''); setSkola(''); setArskurs(''); setKlass(''); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
-                className="text-left bg-warm-50 rounded-[2rem] p-7 border border-warm-100 hover:border-navy-200 hover:shadow-md transition-all group"
+                onClick={() => { setKategori(''); setStep('kategori'); scrollTo(kategoriRef) }}
+                className="text-left bg-warm-50 rounded-md p-7 border border-warm-100 hover:border-navy-200 hover:shadow-md transition-all group"
               >
                 <h3 className="font-display text-xl font-bold text-navy-900 mb-2">Rapportera igen</h3>
                 <p className="text-warm-500 text-sm mb-4">Har ditt barn sagt något annat? Rapportera en till kategori.</p>
@@ -634,7 +667,7 @@ export default function MenAllaAndra() {
         <section id="karta" className="py-20 sm:py-24 bg-warm-50/40 border-t border-warm-100">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10 max-w-2xl mx-auto">
-              <div className="text-xs font-bold uppercase tracking-[0.14em] text-navy-500 mb-3">Live just nu</div>
+              <div className="etikett mb-3">Live just nu</div>
               <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-navy-900 mb-4 text-balance">
                 Här rapporterar föräldrar &ldquo;men alla andra har...&rdquo;
               </h2>
@@ -642,7 +675,7 @@ export default function MenAllaAndra() {
                 <strong className="text-navy-700">{stats.total}</strong> {stats.total === 1 ? 'förälder' : 'föräldrar'} i <strong className="text-navy-700">{stats.kommunCount}</strong> {stats.kommunCount === 1 ? 'kommun' : 'kommuner'} har redan delat sin upplevelse.
               </p>
             </div>
-            <div className="bg-white rounded-[2rem] p-4 sm:p-6 border border-warm-100 shadow-sm">
+            <div className="bg-white rounded-md p-4 sm:p-6 border border-warm-100 shadow-sm">
               <SwedenMap kommunStats={stats.kommunStats} />
             </div>
           </div>

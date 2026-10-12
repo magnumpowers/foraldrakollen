@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getSupabase } from '@/lib/supabase'
+import { getSupabaseAdmin } from '@/lib/supabase-server'
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = getSupabase()
+    const supabase = getSupabaseAdmin()
     const { searchParams } = new URL(request.url)
     const kommun = searchParams.get('kommun')
     const skola = searchParams.get('skola')
@@ -18,13 +18,30 @@ export async function GET(request: NextRequest) {
       .select('*', { count: 'exact', head: true })
       .gte('created_at', sixMonthsAgo.toISOString())
 
-    const { count: totalCount } = await totalQuery
+    const { count: totalCount, error: countError } = await totalQuery
+    if (countError) {
+      console.error('stats count', countError)
+      return NextResponse.json({ error: 'Statistik otillgänglig' }, { status: 503 })
+    }
 
-    // Get counts per kommun
-    const { data: allClicks } = await supabase
-      .from('men_alla_andra')
-      .select('kommun, kategori, skola, klass')
-      .gte('created_at', sixMonthsAgo.toISOString())
+    // Hämta alla rader i sidor om 1000, annars kapar PostgREST vid max_rows
+    // och kommunsiffrorna blir för låga när tabellen växer
+    const allClicks: { kommun: string; kategori: string; skola: string | null; klass: string | null }[] = []
+    const PAGE = 1000
+    for (let from = 0; ; from += PAGE) {
+      const { data, error } = await supabase
+        .from('men_alla_andra')
+        .select('kommun, kategori, skola, klass')
+        .gte('created_at', sixMonthsAgo.toISOString())
+        .order('created_at', { ascending: true })
+        .range(from, from + PAGE - 1)
+      if (error) {
+        console.error('stats rows', error)
+        return NextResponse.json({ error: 'Statistik otillgänglig' }, { status: 503 })
+      }
+      allClicks.push(...(data ?? []))
+      if (!data || data.length < PAGE) break
+    }
 
     // Aggregate per kommun
     const kommunStats: Record<string, number> = {}
@@ -33,16 +50,16 @@ export async function GET(request: NextRequest) {
     let skolaCount = 0
     let klassCount = 0
 
-    if (allClicks) {
+    {
       for (const click of allClicks) {
         kommunStats[click.kommun] = (kommunStats[click.kommun] || 0) + 1
         kategoriStats[click.kategori] = (kategoriStats[click.kategori] || 0) + 1
 
         if (kommun && click.kommun === kommun) {
           localCount++
-          if (skola && click.skola === skola) {
+          if (skola && click.skola?.toLowerCase() === skola.trim().toLowerCase()) {
             skolaCount++
-            if (klass && click.klass === klass) {
+            if (klass && click.klass?.toLowerCase() === klass.trim().toLowerCase()) {
               klassCount++
             }
           }

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Fraunces } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { Navigation } from '@/components/Navigation'
@@ -12,7 +12,16 @@ const inter = Inter({
   display: 'swap',
 })
 
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  axes: ['opsz', 'SOFT'],
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
+  metadataBase: new URL('https://foraldrakollen.nu'),
+  alternates: { canonical: './' },
   title: 'Föräldrakollen | Skydda ditt barn på nätet',
   description: 'En forskningsbaserad guide för föräldrar som vill hjälpa sina barn (8-13 år) att vara trygga online. Steg-för-steg-instruktioner för iOS, Android, TikTok, Instagram, Snapchat och YouTube.',
   keywords: ['barn säkerhet', 'föräldrakontroll', 'skärmtid', 'TikTok', 'Instagram', 'Snapchat', 'digital uppfostran', 'näthat', 'grooming'],
@@ -30,19 +39,21 @@ export const metadata: Metadata = {
     description: 'Forskningsbaserad guide för föräldrar - skydda ditt barn online med konkreta steg-för-steg-instruktioner.',
     type: 'website',
     locale: 'sv_SE',
+    url: 'https://foraldrakollen.nu',
+    siteName: 'Föräldrakollen',
   },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="sv" className={inter.variable}>
+    <html lang="sv" className={`${inter.variable} ${fraunces.variable}`}>
       <head>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-8JB9RTVMVW" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-8JB9RTVMVW');`}
         </Script>
       </head>
-      <body className="min-h-screen flex flex-col bg-white">
+      <body className="min-h-screen flex flex-col bg-paper">
         <Navigation />
         <main className="flex-1">{children}</main>
         <Footer />
