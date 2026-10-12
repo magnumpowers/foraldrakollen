@@ -41,7 +41,7 @@ export function HjalpAttSvara() {
               >
                 <span className="text-2xl">{r.icon}</span>
                 <span className="flex-1 font-semibold text-warm-800">{r.title}</span>
-                {isOpen ? <ChevronUp className="w-4 h-4 text-warm-400" /> : <ChevronDown className="w-4 h-4 text-warm-400" />}
+                {isOpen ? <ChevronUp className="w-4 h-4 text-warm-500" /> : <ChevronDown className="w-4 h-4 text-warm-500" />}
               </button>
 
               {isOpen && (
@@ -49,7 +49,7 @@ export function HjalpAttSvara() {
                   {/* Child says */}
                   <div className="flex justify-start">
                     <div className="bg-warm-100 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%]">
-                      <p className="text-xs font-medium text-warm-400 mb-1">Barnet säger:</p>
+                      <p className="text-xs font-medium text-warm-500 mb-1">Barnet säger:</p>
                       <p className="text-warm-700 font-medium">&ldquo;{r.barnSager}&rdquo;</p>
                     </div>
                   </div>
@@ -57,11 +57,11 @@ export function HjalpAttSvara() {
                   {/* Parent can say */}
                   <div className="flex justify-end">
                     <div className="bg-navy-50 border border-navy-100 rounded-2xl rounded-tr-sm px-4 py-3 max-w-[85%]">
-                      <p className="text-xs font-medium text-navy-400 mb-1">Du kan svara:</p>
+                      <p className="text-xs font-medium text-navy-500 mb-1">Du kan svara:</p>
                       <p className="text-navy-800 leading-relaxed">&ldquo;{r.duKanSvara}&rdquo;</p>
                       <button
                         onClick={(e) => { e.stopPropagation(); handleCopy(r.id, r.duKanSvara) }}
-                        className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-navy-400 hover:text-navy-600 transition-colors"
+                        className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-navy-500 hover:text-navy-600 transition-colors"
                       >
                         {copiedId === r.id ? <><Check className="w-3.5 h-3.5" /> Kopierat!</> : <><Copy className="w-3.5 h-3.5" /> Kopiera svar</>}
                       </button>

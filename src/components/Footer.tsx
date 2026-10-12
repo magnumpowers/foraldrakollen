@@ -59,7 +59,7 @@ export function Footer() {
 
         <div className="mt-14 pt-8 border-t border-rule">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-warm-400 text-sm">
+            <p className="text-warm-500 text-sm">
               &copy; {new Date().getFullYear()} Föräldrakollen
             </p>
             <p className="text-warm-500 text-sm">

@@ -7,7 +7,7 @@ type Severity = 'high' | 'medium' | 'low'
 interface Risk { id: string; icon: LucideIcon; title: string; severity: Severity; description: string; statistics: string; howItWorks: string[]; warningSigns: string[]; protection: string[]; guideLink: string }
 
 const risks: Risk[] = [
-  { id:'grooming', icon:UserX, title:'Grooming', severity:'high', description:'Vuxna som tar kontakt med barn online', statistics:'1 av 4 barn har utsatts för groomingförsök', howItWorks:['Börjar med smicker','Bygger förtroende','Ber om personlig info gradvis','Försöker isolera barnet','Kan be om bilder'], warningSigns:['Hemlighetsfull kring kontakter','Nya presenter utan förklaring','Ändrat beteende','Döljer skärmen','Vill träffa nätbekanta'], protection:['Begränsa meddelanden till kända kontakter','Prata om att inte ge ut info','Granska vänlistor tillsammans','Uppmuntra barnet att berätta','Stå på barnets sida'], guideLink:'meddelanden' },
+  { id:'grooming', icon:UserX, title:'Grooming', severity:'high', description:'Vuxna som tar kontakt med barn online', statistics:'1 av 4 unga har före 15 år kontaktats i sexuellt syfte av någon minst 5 år äldre', howItWorks:['Börjar med smicker','Bygger förtroende','Ber om personlig info gradvis','Försöker isolera barnet','Kan be om bilder'], warningSigns:['Hemlighetsfull kring kontakter','Nya presenter utan förklaring','Ändrat beteende','Döljer skärmen','Vill träffa nätbekanta'], protection:['Begränsa meddelanden till kända kontakter','Prata om att inte ge ut info','Granska vänlistor tillsammans','Uppmuntra barnet att berätta','Stå på barnets sida'], guideLink:'meddelanden' },
   { id:'beroende', icon:Zap, title:'Skärmberoende', severity:'high', description:'Appar designade att maximera skärmtid', statistics:'Algoritmflöden designade att fånga uppmärksamheten', howItWorks:['Oändlig scroll','FOMO-notifikationer','Dopamin-belöningssystem','Personaliserade algoritmer','Likes och streaks'], warningSigns:['Svårt att sluta','Irriterad utan skärm','Tappar intresse för annat','Ljuger om tid online','Sämre sömn'], protection:['Tydliga tidsgränser','Föräldrakontroll','Skärmfria zoner','Var en god förebild','Aktiviteter offline'], guideLink:'skarmtid' },
   { id:'innehall', icon:Eye, title:'Olämpligt innehåll', severity:'medium', description:'Pornografi, våld, hat och skadligt innehåll', statistics:'Nätporr kan ge skev bild av relationer', howItWorks:['Dyker upp i sökresultat','Vänner delar','Algoritmer rekommenderar','Pop-up-annonser','Hashtags leder fel'], warningSigns:['Stänger snabbt ner','Verkar oroad efter skärmtid','Frågor om vuxna ämnen','Olämpliga ord','Undviker att visa'], protection:['Innehållsfilter','YouTube Kids','Begränsat läge','Prata öppet','Reagera lugnt'], guideLink:'innehall' },
   { id:'integritet', icon:Shield, title:'Integritet och data', severity:'medium', description:'Appar som samlar personlig info', statistics:'Platsdata kan läcka hemadress och skola', howItWorks:['Plats/kamera/kontakter','Geotaggar i bilder','Offentlig profilinfo','Beteendedata','Data säljs vidare'], warningSigns:['Ort/skola i profil','Platstaggade bilder','För många app-behörigheter','Riktigt namn online','Offentlig profil'], protection:['Stäng av platstjänster','Ghost Mode på Snapchat','Anonymt användarnamn','Granska behörigheter','Lär ut dataskydd'], guideLink:'plats' },
@@ -18,7 +18,7 @@ const risks: Risk[] = [
 const help = [
   { name:'BRIS', desc:'Stödlinje för barn och unga', phone:'116 111', url:'https://www.bris.se' },
   { name:'Polisen', desc:'Anmäl brott eller rådgivning', phone:'114 14', url:'https://polisen.se' },
-  { name:'Mind', desc:'Stöd för psykisk hälsa', phone:'90101', url:'https://mind.se' },
+  { name:'Mind Föräldralinjen', desc:'Stöd för dig som är orolig för ditt barn', phone:'020-85 20 00', url:'https://mind.se' },
 ]
 
 const sevColors: Record<Severity,string> = { high:'bg-coral-50 text-coral-600 border-coral-200', medium:'bg-amber-50 text-amber-600 border-amber-200', low:'bg-navy-50 text-navy-600 border-navy-200' }
@@ -64,7 +64,7 @@ export default function RisksPage() {
               <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div><h3 className="font-semibold text-warm-600 mb-3 text-sm uppercase tracking-wide">Hur det fungerar</h3><ul className="space-y-2">{r.howItWorks.map((x,i)=>(<li key={i} className="flex items-start gap-2 text-sm text-warm-500"><span className="text-warm-300 mt-1">•</span>{x}</li>))}</ul></div>
                 <div><h3 className="font-semibold text-coral-600 mb-3 text-sm uppercase tracking-wide">Varningstecken</h3><ul className="space-y-2">{r.warningSigns.map((x,i)=>(<li key={i} className="flex items-start gap-2 text-sm text-warm-500"><AlertTriangle className="w-4 h-4 text-coral-400 flex-shrink-0 mt-0.5" />{x}</li>))}</ul></div>
-                <div><h3 className="font-semibold text-navy-600 mb-3 text-sm uppercase tracking-wide">Så skyddar du</h3><ul className="space-y-2">{r.protection.map((x,i)=>(<li key={i} className="flex items-start gap-2 text-sm text-warm-500"><CheckCircle2 className="w-4 h-4 text-navy-400 flex-shrink-0 mt-0.5" />{x}</li>))}</ul><Link href={`/guider#${r.guideLink}`} className="inline-flex items-center gap-1 mt-4 text-sm font-medium text-navy-600 hover:text-navy-800">Se guiden <ExternalLink className="w-3 h-3" /></Link></div>
+                <div><h3 className="font-semibold text-navy-600 mb-3 text-sm uppercase tracking-wide">Så skyddar du</h3><ul className="space-y-2">{r.protection.map((x,i)=>(<li key={i} className="flex items-start gap-2 text-sm text-warm-500"><CheckCircle2 className="w-4 h-4 text-navy-500 flex-shrink-0 mt-0.5" />{x}</li>))}</ul><Link href={`/guider#${r.guideLink}`} className="inline-flex items-center gap-1 mt-4 text-sm font-medium text-navy-600 hover:text-navy-800">Se guiden <ExternalLink className="w-3 h-3" /></Link></div>
               </div>
             </div>
           )})}
@@ -74,6 +74,7 @@ export default function RisksPage() {
       <section className="py-12 bg-warm-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-display text-2xl font-bold text-navy-900 mb-8 text-center">Hit kan du vända dig</h2>
+          <p className="text-center text-ink font-semibold mb-8">Vid akut fara: ring 112.</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {help.map((h,i)=>(<div key={i} className="bg-white rounded-2xl p-6 border border-warm-100 text-center shadow-sm">
               <h3 className="font-display font-bold text-warm-800 mb-1">{h.name}</h3>

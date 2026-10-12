@@ -64,8 +64,9 @@ vercel --prod    # Deploya till produktion
 
 ## Designprinciper
 
-- **Färger:** Primary (teal/grön), Coral (korall/orange), Sand (beige bakgrund)
-- **Typsnitt:** Nunito (display/rubriker), Inter (brödtext)
+- **Färger (okt 2026):** ink #16233A, paper #FAF7F2, paper-dark, rule, coral som enda accent. Inga piller, gradienter eller färgade ikonrutor.
+- **Typsnitt:** Fraunces (rubriker, via next/font), Inter (brödtext). Etiketter med klassen `.etikett`.
+- **Faktagranskad 12/10 2026:** iOS-steg följer iOS 27 (Inställningar > Familj), källor i guides-data.ts
 - **Ton:** Trygg, förtroendeingivande, icke-dömande
 - **Målgrupp:** Svenska föräldrar med barn 8-13 år
 
@@ -75,9 +76,9 @@ All statistik på sidan ska ha källhänvisning med direktlänk till publikation
 
 | Statistik | Källa | Länk |
 |-----------|-------|------|
-| "1 av 4 barn utsatts för grooming" | Unga, sex och internet efter #metoo (2021) | [PDF](https://allmannabarnhuset.se/wp-content/uploads/2022/09/Unga_Sex_Och_Internet_Efter_MeToo_2021.pdf) |
-| "1-2 tim skärmtid för barn 6-12 år" | Folkhälsomyndigheten (2024) | [PDF](https://www.folkhalsomyndigheten.se/contentassets/201463a976054dde8ad7aa8a47861c0a/rekommendationer-digitala-medier-barns-ungas-medieanvandning.pdf) |
-| "60 min dagsgräns på TikTok" | TikTok Newsroom (2023) | [Länk](https://newsroom.tiktok.com/sv-se/nya-funktioner-for-ungdomar-och-familjer-pa-tiktok) |
+| "1 av 4 unga har före 15 år kontaktats i sexuellt syfte av någon minst 5 år äldre" (26 %, gymnasiets åk 3, s. 68) | Unga, sex och internet efter #metoo (2021) | [PDF via Wayback](https://web.archive.org/web/2024/https://allmannabarnhuset.se/wp-content/uploads/2022/09/Unga_Sex_Och_Internet_Efter_MeToo_2021.pdf) (allmannabarnhuset.se är nedlagd) |
+| "1-2 tim skärmtid för barn 6-12 år", "10-11 h sömn 6-12 år, 8-9 h 13-18 år" | Folkhälsomyndigheten (2024) | [PDF](https://www.folkhalsomyndigheten.se/contentassets/201463a976054dde8ad7aa8a47861c0a/rekommendationer-digitala-medier-barns-ungas-medieanvandning.pdf) |
+| "60 min standardpåminnelse på TikTok för under 18 (kan passeras med lösenkod)" | TikTok Newsroom (2023) | [Länk](https://newsroom.tiktok.com/sv-se/nya-funktioner-for-ungdomar-och-familjer-pa-tiktok) |
 | "16 år för DM på TikTok" | TikTok Safety | [Länk](https://www.tiktok.com/safety/sv-se/guardians-guide/) |
 
 ## Viktiga innehållsriktlinjer

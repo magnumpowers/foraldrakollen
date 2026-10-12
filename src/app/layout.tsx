@@ -20,6 +20,8 @@ const fraunces = Fraunces({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://foraldrakollen.nu'),
+  alternates: { canonical: './' },
   title: 'Föräldrakollen | Skydda ditt barn på nätet',
   description: 'En forskningsbaserad guide för föräldrar som vill hjälpa sina barn (8-13 år) att vara trygga online. Steg-för-steg-instruktioner för iOS, Android, TikTok, Instagram, Snapchat och YouTube.',
   keywords: ['barn säkerhet', 'föräldrakontroll', 'skärmtid', 'TikTok', 'Instagram', 'Snapchat', 'digital uppfostran', 'näthat', 'grooming'],
@@ -37,6 +39,8 @@ export const metadata: Metadata = {
     description: 'Forskningsbaserad guide för föräldrar - skydda ditt barn online med konkreta steg-för-steg-instruktioner.',
     type: 'website',
     locale: 'sv_SE',
+    url: 'https://foraldrakollen.nu',
+    siteName: 'Föräldrakollen',
   },
 }
 

@@ -116,7 +116,7 @@ export default function SwedenMap({ kommunStats, highlightKommun }: SwedenMapPro
       </div>
 
       {missing.length > 0 && (
-        <p className="text-xs text-warm-400 mt-3 text-center">
+        <p className="text-xs text-warm-500 mt-3 text-center">
           Även rapporter från: {missing.slice(0, 8).join(', ')}{missing.length > 8 ? ` +${missing.length - 8} till` : ''}
         </p>
       )}

@@ -12,9 +12,9 @@ const guideAreas = [
 ]
 
 const stats = [
-  { value: '1 av 4', label: 'barn har utsatts för groomingförsök online', source: 'Unga, sex och internet (2021)', sourceUrl: 'https://allmannabarnhuset.se/wp-content/uploads/2022/09/Unga_Sex_Och_Internet_Efter_MeToo_2021.pdf' },
-  { value: '9–11 h', label: 'sömn behöver barn 8–13 år per natt', source: 'Folkhälsomyndigheten (2024)', sourceUrl: 'https://www.folkhalsomyndigheten.se/contentassets/201463a976054dde8ad7aa8a47861c0a/rekommendationer-digitala-medier-barns-ungas-medieanvandning.pdf' },
-  { value: '60 min', label: 'är TikToks automatiska dagsgräns för barn', source: 'TikTok Newsroom (2023)', sourceUrl: 'https://newsroom.tiktok.com/sv-se/nya-funktioner-for-ungdomar-och-familjer-pa-tiktok' },
+  { value: '1 av 4', label: 'unga har före 15 års ålder blivit kontaktade i sexuellt syfte av någon minst fem år äldre', source: 'Unga, sex och internet efter #metoo (2021)', sourceUrl: 'https://web.archive.org/web/2024/https://allmannabarnhuset.se/wp-content/uploads/2022/09/Unga_Sex_Och_Internet_Efter_MeToo_2021.pdf' },
+  { value: '10–11 h', label: 'sömn per natt behöver barn 6–12 år', source: 'Folkhälsomyndigheten (2024)', sourceUrl: 'https://www.folkhalsomyndigheten.se/contentassets/201463a976054dde8ad7aa8a47861c0a/rekommendationer-digitala-medier-barns-ungas-medieanvandning.pdf' },
+  { value: '60 min', label: 'efter så lång tid påminner TikTok automatiskt användare under 18 år', source: 'TikTok Newsroom (2023)', sourceUrl: 'https://newsroom.tiktok.com/sv-se/nya-funktioner-for-ungdomar-och-familjer-pa-tiktok' },
 ]
 
 const ikvall = [
@@ -25,8 +25,8 @@ const ikvall = [
 
 const reasons = [
   { title: 'Psykisk hälsa', text: 'Omfattande skärmanvändning hänger samman med ökad psykisk ohälsa hos unga. Algoritmerna bryr sig mer om engagemang än om åldersanpassning.' },
-  { title: 'Sömn', text: 'Längre skärmtid leder till sämre sömn. Bara genom att lägga bort mobilen i tid kan ungdomar sova omkring 20 minuter längre per natt.' },
-  { title: 'Sociala risker', text: '1 av 4 barn i Sverige har utsatts för groomingförsök online. Begränsa vem som kan kontakta ditt barn.' },
+  { title: 'Sömn', text: 'Mycket skärmtid kan leda till sämre sömn. I en studie somnade ungdomar som slutade med skärmar klockan 21 omkring 20 minuter tidigare och sov 17 minuter längre.' },
+  { title: 'Sociala risker', text: 'Var fjärde ung har före 15 års ålder blivit kontaktad i sexuellt syfte av någon minst fem år äldre. Begränsa vem som kan kontakta ditt barn.' },
 ]
 
 const prata = [
@@ -140,7 +140,7 @@ export default function Home() {
             {guideAreas.map((area, i) => (
               <li key={area.id}>
                 <Link href={`/guider#${area.id}`} className="group flex items-baseline gap-5 sm:gap-8 py-5">
-                  <span className="font-display text-lg text-warm-400 tabular-nums w-7 flex-shrink-0">
+                  <span className="font-display text-lg text-warm-500 tabular-nums w-7 flex-shrink-0">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span className="flex-1">

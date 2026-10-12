@@ -23,12 +23,25 @@ export function GuideCard({ guide }: { guide: Guide }) {
     if (saved) try { setCompletedSteps(new Set(JSON.parse(saved))) } catch {}
   }, [guide.id])
 
+  // Öppna kortet när man kommer hit via en länk som /guider#plats
   useEffect(() => {
-    if (completedSteps.size > 0) localStorage.setItem(`guide-progress-${guide.id}`, JSON.stringify([...completedSteps]))
-  }, [completedSteps, guide.id])
+    const open = () => { if (window.location.hash === `#${guide.id}`) setIsExpanded(true) }
+    open()
+    window.addEventListener('hashchange', open)
+    return () => window.removeEventListener('hashchange', open)
+  }, [guide.id])
 
+  // Spara direkt vid varje klick, även när sista bocken tas bort
   const toggleStep = (stepId: string) => {
-    const n = new Set(completedSteps); n.has(stepId) ? n.delete(stepId) : n.add(stepId); setCompletedSteps(n)
+    setCompletedSteps(prev => {
+      const n = new Set(prev)
+      if (n.has(stepId)) n.delete(stepId); else n.add(stepId)
+      const key = `guide-progress-${guide.id}`
+      try {
+        if (n.size) localStorage.setItem(key, JSON.stringify([...n])); else localStorage.removeItem(key)
+      } catch {}
+      return n
+    })
   }
 
   const totalSteps = guide.platforms.reduce((a, p) => a + p.steps.length, 0)
@@ -36,24 +49,24 @@ export function GuideCard({ guide }: { guide: Guide }) {
   const pct = totalSteps > 0 ? (completedCount / totalSteps) * 100 : 0
 
   return (
-    <div id={guide.id} className="bg-white rounded-2xl border border-warm-100 hover:border-navy-200 transition-colors overflow-hidden scroll-mt-24 hover:shadow-md">
+    <div id={guide.id} className="bg-white rounded-md border border-rule hover:border-warm-400 transition-colors overflow-hidden scroll-mt-40">
       <button onClick={() => setIsExpanded(!isExpanded)} className="w-full p-7 text-left hover:bg-warm-50/50 transition-colors" aria-expanded={isExpanded}>
         <div className="flex items-start gap-4">
-          <div className="w-13 h-13 rounded-xl flex items-center justify-center flex-shrink-0 bg-navy-50 text-navy-500">
+          <div className="w-13 h-13 rounded-xl flex items-center justify-center flex-shrink-0 bg-paper-dark text-ink">
             <Icon className="w-7 h-7" />
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1 flex-wrap">
-              <span className="text-xs font-semibold text-navy-400">Steg {guide.priority}</span>
-              <span className="text-xs text-warm-400 flex items-center gap-1"><Clock className="w-3.5 h-3.5" />Ca {guide.estimatedTime}</span>
-              {completedCount > 0 && <span className="text-xs text-warm-400">{completedCount}/{totalSteps} klart</span>}
+              <span className="text-xs font-semibold text-coral-600">Steg {guide.priority}</span>
+              <span className="text-xs text-warm-500 flex items-center gap-1"><Clock className="w-3.5 h-3.5" />Ca {guide.estimatedTime}</span>
+              {completedCount > 0 && <span className="text-xs text-warm-500">{completedCount}/{totalSteps} klart</span>}
             </div>
-            <h2 className="font-display font-bold text-xl text-warm-800 mb-1.5">{guide.title}</h2>
-            <p className="text-warm-400 text-sm line-clamp-2">{guide.why.substring(0, 150)}...</p>
+            <h2 className="font-display text-xl text-ink mb-1.5">{guide.title}</h2>
+            <p className="text-warm-600 text-sm line-clamp-2">{guide.why}</p>
             {completedCount > 0 && <div className="mt-3 h-1.5 bg-warm-100 rounded-full overflow-hidden"><div className="h-full rounded-full bg-navy-400 transition-all duration-300" style={{ width: `${pct}%` }} /></div>}
           </div>
           <div className={`p-2 rounded-lg ${isExpanded ? 'bg-warm-100' : ''}`}>
-            {isExpanded ? <ChevronUp className="w-5 h-5 text-warm-400" /> : <ChevronDown className="w-5 h-5 text-warm-400" />}
+            {isExpanded ? <ChevronUp className="w-5 h-5 text-warm-500" /> : <ChevronDown className="w-5 h-5 text-warm-500" />}
           </div>
         </div>
       </button>
@@ -84,10 +97,10 @@ export function GuideCard({ guide }: { guide: Guide }) {
                       const id = `${guide.id}-${pi}-${si}`; const checked = completedSteps.has(id)
                       return (
                         <li key={si} className="flex items-start gap-3">
-                          <button onClick={() => toggleStep(id)} className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${checked ? 'bg-navy-500 border-navy-500' : 'border-warm-300 hover:border-navy-300'}`}>
+                          <button onClick={() => toggleStep(id)} aria-label={checked ? 'Markera som ej klar' : 'Markera som klar'} aria-pressed={checked} className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${checked ? 'bg-navy-500 border-navy-500' : 'border-warm-300 hover:border-navy-300'}`}>
                             {checked && <CheckCircle2 className="w-4 h-4 text-white" />}
                           </button>
-                          <span className={`text-sm leading-relaxed ${checked ? 'text-warm-400 line-through' : 'text-warm-600'}`}>{step}</span>
+                          <span className={`text-sm leading-relaxed ${checked ? 'text-warm-500 line-through' : 'text-warm-700'}`}>{step}</span>
                         </li>
                       )
                     })}
@@ -101,7 +114,7 @@ export function GuideCard({ guide }: { guide: Guide }) {
             <ul className="space-y-2">
               {guide.tips.map((tip, i) => (
                 <li key={i} className="flex items-start gap-2">
-                  <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5 text-navy-400" />
+                  <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5 text-navy-500" />
                   <span className="text-sm text-warm-500">{tip}</span>
                 </li>
               ))}
