@@ -34,9 +34,21 @@
   --color-warm-800: #292524;
   --color-warm-900: #1C1917;
 
+  /* Papper och bläck */
+  --color-paper: #FAF7F2;
+  --color-paper-dark: #F1EBE1;
+  --color-ink: #16233A;
+  --color-rule: #E2DACB;
+
   /* Fonts */
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-display: 'Inter', system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
+
+  /* Mindre runda hörn överallt: sajten ska kännas tryckt, inte som en app-mall */
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.625rem;
+  --radius-3xl: 0.75rem;
 }
 
 html {
@@ -45,14 +57,35 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background-color: #ffffff;
+  background-color: var(--color-paper);
   color: var(--color-warm-700);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 96, "SOFT" 30;
+}
+
+h4, h5, h6 {
   font-family: var(--font-sans);
+}
+
+.font-display {
+  font-weight: 600 !important;
+}
+
+/* Liten versal etikett, används i stället för färgade "pill"-märken */
+.etikett {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-coral-600);
 }
 
 .text-balance {

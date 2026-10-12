@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Fraunces } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { Navigation } from '@/components/Navigation'
@@ -9,6 +9,13 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   weight: ['400', '500', '600', '700', '800'],
+  display: 'swap',
+})
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  axes: ['opsz', 'SOFT'],
   display: 'swap',
 })
 
@@ -35,14 +42,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="sv" className={inter.variable}>
+    <html lang="sv" className={`${inter.variable} ${fraunces.variable}`}>
       <head>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-8JB9RTVMVW" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-8JB9RTVMVW');`}
         </Script>
       </head>
-      <body className="min-h-screen flex flex-col bg-white">
+      <body className="min-h-screen flex flex-col bg-paper">
         <Navigation />
         <main className="flex-1">{children}</main>
         <Footer />

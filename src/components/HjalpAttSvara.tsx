@@ -17,7 +17,7 @@ export function HjalpAttSvara() {
   }
 
   return (
-    <div className="bg-navy-50 rounded-[2rem] p-8 border border-navy-100">
+    <div className="bg-paper-dark rounded-md p-8 border border-navy-100">
       <div className="flex items-center gap-3 mb-2">
         <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center shadow-sm">
           <Brain className="w-6 h-6 text-navy-500" />

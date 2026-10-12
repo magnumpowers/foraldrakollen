@@ -21,7 +21,7 @@ export default function ResearchPage() {
     <div>
       <section className="pt-16 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-navy-50 text-navy-600 rounded-full text-sm font-medium mb-6"><BookOpen className="w-4 h-4" />Forskningsbaserat</div>
+          <p className="etikett mb-5">Forskningsbaserat</p>
           <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-navy-900 mb-4">Vad säger forskningen?</h1>
           <p className="text-lg text-warm-500 max-w-2xl mx-auto">Kunskap är första steget till informerade beslut om ditt barns digitala liv.</p>
         </div>
@@ -59,7 +59,7 @@ export default function ResearchPage() {
 
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-navy-800 rounded-[2rem] p-9 text-center">
+          <div className="bg-navy-800 rounded-md p-9 text-center">
             <h2 className="font-display text-2xl font-bold text-white mb-4">Balansen är nyckeln</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6 text-left">
               <div><h3 className="font-semibold text-navy-100 mb-2">Det handlar inte om förbud</h3><p className="text-navy-300 text-sm leading-relaxed">Målet är att hjälpa ditt barn att få en balanserad mediediet. Förvalda kanaler ger mer kontroll än fria algoritmer.</p></div>
@@ -73,7 +73,7 @@ export default function ResearchPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-display text-2xl font-bold text-navy-900 mb-4">Redo att börja?</h2>
           <p className="text-warm-500 mb-6">Nu när du vet varför — ta steget och ställ in skydden.</p>
-          <Link href="/guider" className="inline-flex items-center gap-2 px-8 py-4 bg-navy-800 text-white rounded-full font-semibold text-lg hover:bg-navy-700 transition-all shadow-lg shadow-navy-800/20">Gå till guiderna</Link>
+          <Link href="/guider" className="inline-flex items-center gap-2 px-7 py-3.5 bg-ink text-paper rounded-md font-semibold hover:bg-navy-700 transition-colors">Gå till guiderna</Link>
         </div>
       </section>
     </div>

@@ -9,17 +9,17 @@ export default function AboutPage() {
     <div>
       <section className="pt-16 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-navy-50 text-navy-600 rounded-full text-sm font-medium mb-6"><Users className="w-4 h-4" />Om oss</div>
+          <p className="etikett mb-5">Om oss</p>
           <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-navy-900 mb-4">Om Föräldrakollen</h1>
         </div>
       </section>
 
       <section className="py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-[2rem] border border-warm-100 overflow-hidden shadow-sm">
+          <div className="bg-white rounded-md border border-warm-100 overflow-hidden shadow-sm">
             <div className="p-8 md:p-12">
               <div className="flex justify-center mb-8">
-                <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-[2rem] overflow-hidden shadow-md">
+                <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-md overflow-hidden shadow-md">
                   <Image src="/veckans-ai.jpg" alt="Magnus Paues och Fredrik Hanefalk" fill className="object-cover" priority />
                 </div>
               </div>
@@ -41,7 +41,7 @@ export default function AboutPage() {
           </div>
           <div className="mt-12 text-center">
             <p className="text-warm-500 mb-6">Har du frågor eller förslag? Hör av dig via våra sociala kanaler.</p>
-            <Link href="/guider" className="inline-flex items-center gap-2 px-8 py-4 bg-navy-800 text-white rounded-full font-semibold text-lg hover:bg-navy-700 transition-all shadow-lg shadow-navy-800/20"><Heart className="w-5 h-5" />Börja skydda ditt barn</Link>
+            <Link href="/guider" className="inline-flex items-center gap-2 px-7 py-3.5 bg-ink text-paper rounded-md font-semibold hover:bg-navy-700 transition-colors"><Heart className="w-5 h-5" />Börja skydda ditt barn</Link>
           </div>
         </div>
       </section>

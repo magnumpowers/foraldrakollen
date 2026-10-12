@@ -10,7 +10,6 @@ import {
   Users,
   ArrowRight,
   CheckCircle2,
-  HandHeart,
   School,
   Copy,
   Check,
@@ -222,28 +221,25 @@ export default function MenAllaAndra() {
     <div>
       {/* ============ HERO ============ */}
       <section className="pt-16 sm:pt-24 pb-20 sm:pb-28 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 20% 10%, rgba(74,127,181,0.08), transparent 60%), radial-gradient(circle at 90% 80%, rgba(224,112,85,0.05), transparent 50%)' }} />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-navy-50 text-navy-700 rounded-full text-sm font-semibold mb-10">
-            <HandHeart className="w-4 h-4" />
+          <p className="etikett mb-8">
             {stats && stats.total > 0
               ? <>{stats.total.toLocaleString('sv-SE')} {stats.total === 1 ? 'förälder har' : 'föräldrar har'} känt igen sig</>
               : 'Du är inte ensam'}
-          </div>
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-8xl font-extrabold text-navy-900 mb-8 leading-[1.05] text-balance">
-            &ldquo;Men <span className="text-navy-400">alla andra</span> har...&rdquo;
+          </p>
+          <h1 className="font-display text-5xl sm:text-6xl lg:text-8xl text-ink mb-8 leading-[1.05] text-balance">
+            &bdquo;Men <em className="italic text-coral-600">alla andra</em> har&hellip;&rdquo;
           </h1>
           <p className="text-xl sm:text-2xl text-warm-500 mb-5 max-w-3xl mx-auto leading-relaxed">
             Har ditt barn sagt det? Tryck på knappen. Se hur många andra föräldrar
             i din kommun, skola och klass som hör exakt samma sak.
           </p>
-          <p className="text-lg text-warm-400 mb-14 max-w-2xl mx-auto">
-            Tillsammans är vi starkare. Dela med andra föräldrar och
-            visa att &ldquo;alla andra&rdquo; kanske inte stämmer.
+          <p className="text-lg text-warm-500 mb-12 max-w-2xl mx-auto">
+            Ofta visar det sig att &bdquo;alla andra&rdquo; är betydligt färre än barnet tror.
           </p>
           <button
             onClick={startFlow}
-            className="group relative inline-flex items-center justify-center px-16 py-7 sm:py-8 bg-navy-800 text-white rounded-full font-bold text-2xl sm:text-3xl hover:bg-navy-700 transition-all shadow-2xl shadow-navy-800/25 hover:shadow-navy-800/40 hover:-translate-y-1 active:translate-y-0"
+            className="group relative inline-flex items-center justify-center px-12 py-5 sm:py-6 bg-ink text-paper rounded-md font-semibold text-xl sm:text-2xl hover:bg-navy-700 transition-colors"
           >
             Mitt barn sa det just!
           </button>
@@ -262,7 +258,7 @@ export default function MenAllaAndra() {
       <section ref={kategoriRef} className={`py-20 sm:py-24 bg-warm-50/40 border-y border-warm-100 transition-opacity ${step === 'start' ? 'opacity-40' : 'opacity-100'}`}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12 max-w-2xl">
-            <div className="text-xs font-bold uppercase tracking-[0.14em] text-navy-500 mb-3">Steg 1 av 2</div>
+            <div className="etikett mb-3">Steg 1 av 2</div>
             <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-navy-900 leading-[1.1] mb-4 text-balance">
               Vad sa ditt barn?
             </h2>
@@ -280,9 +276,9 @@ export default function MenAllaAndra() {
                   key={kat.id}
                   onClick={() => selectKategori(kat.id)}
                   disabled={step === 'start'}
-                  className={`group relative flex flex-col gap-5 p-7 rounded-[2rem] border bg-white text-left transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-navy-50 ${
+                  className={`group relative flex flex-col gap-5 p-7 rounded-md border bg-white text-left transition-colors ${
                     isSelected
-                      ? 'border-navy-400 ring-4 ring-navy-100 shadow-xl shadow-navy-100/50'
+                      ? 'border-ink ring-2 ring-coral-300'
                       : 'border-warm-100 hover:border-navy-200'
                   } ${step === 'start' ? 'cursor-default hover:translate-y-0 hover:shadow-none' : 'cursor-pointer'}`}
                 >
@@ -329,7 +325,7 @@ export default function MenAllaAndra() {
             </div>
 
             <div className="mb-10">
-              <div className="text-xs font-bold uppercase tracking-[0.14em] text-navy-500 mb-3">Steg 2 av 2</div>
+              <div className="etikett mb-3">Steg 2 av 2</div>
               <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-navy-900 leading-[1.1] mb-4 text-balance">
                 Bara två saker till.
               </h2>
@@ -340,7 +336,7 @@ export default function MenAllaAndra() {
 
             <div className="space-y-5">
               {/* Kommun card */}
-              <div className="bg-white rounded-[2rem] p-7 sm:p-8 border border-warm-100 shadow-sm">
+              <div className="bg-white rounded-md p-7 sm:p-8 border border-warm-100 shadow-sm">
                 <h3 className="font-display text-2xl font-bold text-warm-800 mb-1.5">
                   Var bor ni?
                 </h3>
@@ -383,7 +379,7 @@ export default function MenAllaAndra() {
 
               {/* Skola + Klass card */}
               {kommun && (
-                <div className="bg-white rounded-[2rem] p-7 sm:p-8 border border-warm-100 shadow-sm">
+                <div className="bg-white rounded-md p-7 sm:p-8 border border-warm-100 shadow-sm">
                   <h3 className="font-display text-2xl font-bold text-warm-800 mb-1.5">
                     Vilken skola och klass?
                   </h3>
@@ -447,7 +443,7 @@ export default function MenAllaAndra() {
 
               {/* Submit CTA */}
               {kommun && (
-                <div className="bg-gradient-to-br from-navy-800 to-navy-900 text-white rounded-[2rem] p-7 sm:p-8 flex flex-col sm:flex-row items-center gap-6 justify-between shadow-xl shadow-navy-900/25">
+                <div className="bg-gradient-to-br from-navy-800 to-navy-900 text-white rounded-md p-7 sm:p-8 flex flex-col sm:flex-row items-center gap-6 justify-between shadow-xl shadow-navy-900/25">
                   <div className="text-center sm:text-left">
                     <h3 className="font-display text-xl sm:text-2xl font-bold mb-1">
                       Redo att se siffrorna?
@@ -508,14 +504,14 @@ export default function MenAllaAndra() {
 
             {/* Stat cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-              <div className="bg-gradient-to-br from-navy-50 to-white rounded-[2rem] p-8 text-center border border-navy-100">
+              <div className="bg-gradient-to-br from-navy-50 to-white rounded-md p-8 text-center border border-navy-100">
                 <div className="font-display text-5xl sm:text-6xl font-extrabold text-navy-700 mb-2">
                   <AnimatedCount value={stats.local.count} />
                 </div>
                 <div className="text-sm text-warm-500">i {kommun}</div>
               </div>
               {skola && (
-                <div className="bg-white rounded-[2rem] p-8 text-center border border-warm-100 shadow-sm">
+                <div className="bg-white rounded-md p-8 text-center border border-warm-100 shadow-sm">
                   <div className="font-display text-5xl sm:text-6xl font-extrabold text-navy-500 mb-2">
                     <AnimatedCount value={stats.local.skolaCount} />
                   </div>
@@ -523,7 +519,7 @@ export default function MenAllaAndra() {
                 </div>
               )}
               {(arskurs || klass) && (
-                <div className="bg-white rounded-[2rem] p-8 text-center border border-warm-100 shadow-sm">
+                <div className="bg-white rounded-md p-8 text-center border border-warm-100 shadow-sm">
                   <div className="font-display text-5xl sm:text-6xl font-extrabold text-warm-600 mb-2">
                     <AnimatedCount value={stats.local.klassCount} />
                   </div>
@@ -533,7 +529,7 @@ export default function MenAllaAndra() {
             </div>
 
             {/* Share card - promoted above map */}
-            <div className="bg-gradient-to-br from-navy-800 to-navy-900 text-white rounded-[2rem] p-8 sm:p-10 mb-10 shadow-xl shadow-navy-900/20">
+            <div className="bg-gradient-to-br from-navy-800 to-navy-900 text-white rounded-md p-8 sm:p-10 mb-10 shadow-xl shadow-navy-900/20">
               <h3 className="font-display text-2xl sm:text-3xl font-bold mb-3 text-balance">
                 Skicka vidare till föräldragruppen
               </h3>
@@ -556,7 +552,7 @@ export default function MenAllaAndra() {
 
             {/* Map */}
             {Object.keys(stats.kommunStats).length > 0 && (
-              <div className="bg-white rounded-[2rem] p-6 sm:p-8 border border-warm-100 mb-10">
+              <div className="bg-white rounded-md p-6 sm:p-8 border border-warm-100 mb-10">
                 <div className="mb-5">
                   <h3 className="font-display text-2xl font-bold text-navy-900 mb-1 flex items-center gap-2">
                     <MapPin className="w-5 h-5 text-navy-500" />
@@ -570,7 +566,7 @@ export default function MenAllaAndra() {
 
             {/* Category bar chart */}
             {Object.keys(stats.kategoriStats).length > 0 && (
-              <div className="bg-white rounded-[2rem] p-6 sm:p-8 border border-warm-100 mb-10">
+              <div className="bg-white rounded-md p-6 sm:p-8 border border-warm-100 mb-10">
                 <h3 className="font-display text-2xl font-bold text-navy-900 mb-5">Mest rapporterat i hela Sverige</h3>
                 <div className="space-y-3">
                   {Object.entries(stats.kategoriStats)
@@ -607,7 +603,7 @@ export default function MenAllaAndra() {
 
             {/* Footer CTAs */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Link href="/guider" className="bg-warm-50 rounded-[2rem] p-7 border border-warm-100 hover:border-navy-200 hover:shadow-md transition-all group">
+              <Link href="/guider" className="bg-warm-50 rounded-md p-7 border border-warm-100 hover:border-navy-200 hover:shadow-md transition-all group">
                 <h3 className="font-display text-xl font-bold text-navy-900 mb-2">Se våra guider</h3>
                 <p className="text-warm-500 text-sm mb-4">Konkreta steg för att skydda ditt barn online.</p>
                 <span className="inline-flex items-center gap-1.5 text-navy-600 font-semibold text-sm group-hover:text-navy-800 transition-colors">
@@ -616,7 +612,7 @@ export default function MenAllaAndra() {
               </Link>
               <button
                 onClick={() => { setStep('start'); setKategori(''); setKommun(''); setKommunSearch(''); setSkola(''); setArskurs(''); setKlass(''); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
-                className="text-left bg-warm-50 rounded-[2rem] p-7 border border-warm-100 hover:border-navy-200 hover:shadow-md transition-all group"
+                className="text-left bg-warm-50 rounded-md p-7 border border-warm-100 hover:border-navy-200 hover:shadow-md transition-all group"
               >
                 <h3 className="font-display text-xl font-bold text-navy-900 mb-2">Rapportera igen</h3>
                 <p className="text-warm-500 text-sm mb-4">Har ditt barn sagt något annat? Rapportera en till kategori.</p>
@@ -634,7 +630,7 @@ export default function MenAllaAndra() {
         <section id="karta" className="py-20 sm:py-24 bg-warm-50/40 border-t border-warm-100">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10 max-w-2xl mx-auto">
-              <div className="text-xs font-bold uppercase tracking-[0.14em] text-navy-500 mb-3">Live just nu</div>
+              <div className="etikett mb-3">Live just nu</div>
               <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-navy-900 mb-4 text-balance">
                 Här rapporterar föräldrar &ldquo;men alla andra har...&rdquo;
               </h2>
@@ -642,7 +638,7 @@ export default function MenAllaAndra() {
                 <strong className="text-navy-700">{stats.total}</strong> {stats.total === 1 ? 'förälder' : 'föräldrar'} i <strong className="text-navy-700">{stats.kommunCount}</strong> {stats.kommunCount === 1 ? 'kommun' : 'kommuner'} har redan delat sin upplevelse.
               </p>
             </div>
-            <div className="bg-white rounded-[2rem] p-4 sm:p-6 border border-warm-100 shadow-sm">
+            <div className="bg-white rounded-md p-4 sm:p-6 border border-warm-100 shadow-sm">
               <SwedenMap kommunStats={stats.kommunStats} />
             </div>
           </div>

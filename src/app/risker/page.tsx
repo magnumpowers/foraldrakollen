@@ -29,7 +29,7 @@ export default function RisksPage() {
     <div>
       <section className="pt-16 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-coral-50 text-coral-600 rounded-full text-sm font-medium mb-6"><AlertTriangle className="w-4 h-4" />Viktigt att känna till</div>
+          <p className="etikett mb-5">Viktigt att känna till</p>
           <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-navy-900 mb-4">Risker på nätet</h1>
           <p className="text-lg text-warm-500 max-w-2xl mx-auto">Förstå riskerna för att kunna skydda ditt barn.</p>
         </div>
@@ -87,10 +87,10 @@ export default function RisksPage() {
 
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-navy-50 rounded-[2rem] p-8 text-center">
+          <div className="bg-paper-dark rounded-md p-8 text-center">
             <h2 className="font-display text-2xl font-bold text-navy-900 mb-4">Du gör redan rätt</h2>
             <p className="text-warm-500 max-w-2xl mx-auto mb-6">Kombinera tekniska inställningar med öppna samtal — det bästa skyddet som finns.</p>
-            <Link href="/guider" className="inline-flex items-center gap-2 px-8 py-4 bg-navy-800 text-white rounded-full font-semibold text-lg hover:bg-navy-700 transition-all shadow-lg shadow-navy-800/20">Ställ in skydden nu</Link>
+            <Link href="/guider" className="inline-flex items-center gap-2 px-7 py-3.5 bg-ink text-paper rounded-md font-semibold hover:bg-navy-700 transition-colors">Ställ in skydden nu</Link>
           </div>
         </div>
       </section>

@@ -13,9 +13,7 @@ export default function GuidesPage() {
     <div>
       <section className="pt-16 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-navy-50 text-navy-600 rounded-full text-sm font-medium mb-6">
-            <Shield className="w-4 h-4" />7 områden att skydda
-          </div>
+          <p className="etikett mb-5">7 områden att skydda</p>
           <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-navy-900 mb-4">Steg-för-steg-guider</h1>
           <p className="text-lg text-warm-500 max-w-2xl mx-auto">Prioriterade från viktigast till förebyggande. Bocka av stegen allt eftersom.</p>
         </div>
@@ -26,7 +24,7 @@ export default function GuidesPage() {
           <div className="flex items-center gap-2 overflow-x-auto pb-1">
             <span className="text-sm text-warm-400 flex-shrink-0">Hoppa till:</span>
             {guides.map((g) => (
-              <Link key={g.id} href={`#${g.id}`} className="flex-shrink-0 px-3 py-1.5 text-sm font-medium rounded-full bg-warm-50 text-warm-600 hover:bg-navy-50 hover:text-navy-700 transition-colors border border-warm-100">
+              <Link key={g.id} href={`#${g.id}`} className="flex-shrink-0 px-3 py-1.5 text-sm font-medium rounded-md bg-paper text-warm-700 hover:text-ink hover:border-ink transition-colors border border-rule">
                 {g.priority}. {g.shortTitle}
               </Link>
             ))}
@@ -75,7 +73,7 @@ export default function GuidesPage() {
             </div>
           </div>
 
-          <div className="mt-12 p-8 bg-navy-50 rounded-[2rem] text-center">
+          <div className="mt-12 p-8 bg-paper-dark rounded-md text-center">
             <h3 className="font-display text-xl font-bold text-navy-900 mb-3">Kom ihåg det viktigaste</h3>
             <p className="text-warm-500 max-w-2xl mx-auto">Ingen inställning är 100% säker — det viktigaste skyddet är en <strong className="text-warm-700">öppen relation</strong> där barnet vågar prata med dig om nätet.</p>
           </div>
