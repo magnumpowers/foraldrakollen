@@ -78,14 +78,12 @@ h4, h5, h6 {
   font-weight: 600 !important;
 }
 
-/* Liten versal etikett, används i stället för färgade "pill"-märken */
+/* Liten ingress-rad i vanlig skrift, bara när den bär information */
 .etikett {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-coral-600);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-warm-600);
 }
 
 .text-balance {

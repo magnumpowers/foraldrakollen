@@ -9,7 +9,6 @@ export default function AboutPage() {
     <div>
       <section className="pt-16 pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="etikett mb-5">Om oss</p>
           <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-navy-900 mb-4">Om Föräldrakollen</h1>
         </div>
       </section>

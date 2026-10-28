@@ -43,7 +43,7 @@ export default function Home() {
       <section className="pt-14 sm:pt-20 pb-16 sm:pb-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 lg:gap-16 items-end">
           <div className="lg:col-span-7">
-            <p className="etikett mb-6">För föräldrar med barn 8–13 år</p>
+            <p className="etikett mb-5">För föräldrar med barn 8–13 år</p>
             <h1 className="font-display text-[2.75rem] leading-[1.05] sm:text-6xl lg:text-7xl text-ink mb-7 text-balance">
               Skydda ditt barn på nätet. En inställning i taget.
             </h1>
@@ -68,8 +68,8 @@ export default function Home() {
             </div>
           </div>
 
-          <aside className="lg:col-span-5 bg-white border border-rule rounded-md p-7 sm:p-8">
-            <p className="etikett mb-4">Gör det här ikväll</p>
+          <aside className="lg:col-span-5 bg-white rounded-md p-7 sm:p-8">
+            <h2 className="font-display text-2xl text-ink mb-5">Gör det här ikväll</h2>
             <ol className="space-y-4">
               {ikvall.map((t, i) => (
                 <li key={t} className="flex gap-4">
@@ -78,7 +78,7 @@ export default function Home() {
                 </li>
               ))}
             </ol>
-            <p className="mt-6 pt-5 border-t border-rule text-sm text-warm-500">
+            <p className="mt-6 text-sm text-warm-500">
               Tar ungefär tio minuter. Resten av guiderna kan vänta till helgen.
             </p>
           </aside>
@@ -88,9 +88,9 @@ export default function Home() {
       {/* Siffror */}
       <section className="pb-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 border-t-2 border-ink">
-            {stats.map((stat, i) => (
-              <div key={stat.value} className={`py-7 md:pr-8 ${i > 0 ? 'border-t md:border-t-0 md:border-l border-rule md:pl-8' : ''}`}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 md:gap-x-12">
+            {stats.map((stat) => (
+              <div key={stat.value}>
                 <div className="font-display text-5xl text-ink mb-3">{stat.value}</div>
                 <p className="text-warm-600 mb-3 leading-snug">{stat.label}</p>
                 <a href={stat.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-warm-500 underline underline-offset-2 hover:text-coral-600">
@@ -107,7 +107,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             href="/men-alla-andra"
-            className="group grid md:grid-cols-12 gap-6 items-center bg-paper-dark rounded-md p-8 md:p-12 border-l-4 border-coral-500"
+            className="group grid md:grid-cols-12 gap-6 items-center bg-paper-dark rounded-md p-8 md:p-12"
           >
             <blockquote className="md:col-span-7 font-display italic text-3xl sm:text-4xl text-ink leading-tight">
               &bdquo;Men alla andra har ju&hellip;&rdquo;
@@ -125,7 +125,7 @@ export default function Home() {
       </section>
 
       {/* De sju områdena */}
-      <section className="py-20 bg-white border-y border-rule">
+      <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4">
             <h2 className="font-display text-4xl text-ink mb-4">Sju saker att ställa in</h2>
@@ -136,12 +136,12 @@ export default function Home() {
               Alla guider med instruktioner <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-          <ol className="lg:col-span-8 divide-y divide-rule border-y border-rule">
+          <ol className="lg:col-span-8 space-y-2">
             {guideAreas.map((area, i) => (
               <li key={area.id}>
-                <Link href={`/guider#${area.id}`} className="group flex items-baseline gap-5 sm:gap-8 py-5">
-                  <span className="font-display text-lg text-warm-500 tabular-nums w-7 flex-shrink-0">
-                    {String(i + 1).padStart(2, '0')}
+                <Link href={`/guider#${area.id}`} className="group flex items-baseline gap-4 sm:gap-6 py-3">
+                  <span className="font-display text-lg text-warm-500 tabular-nums w-6 flex-shrink-0">
+                    {i + 1}.
                   </span>
                   <span className="flex-1">
                     <span className="block font-display text-xl sm:text-2xl text-ink group-hover:text-coral-600 transition-colors">
@@ -173,7 +173,7 @@ export default function Home() {
           </div>
 
           <div className="lg:col-span-5">
-            <div className="border-t-2 border-ink pt-6">
+            <div>
               <h2 className="font-display text-2xl text-ink mb-4">Det viktigaste skyddet är du</h2>
               <p className="text-warm-600 mb-6 leading-relaxed">
                 Ingen inställning är helt säker. Det som skyddar mest är att barnet vågar berätta för dig när något händer på nätet.
@@ -194,7 +194,7 @@ export default function Home() {
       {/* Avslut */}
       <section className="pb-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="border-t border-rule pt-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
               <h2 className="font-display text-3xl sm:text-4xl text-ink mb-3">Börja med sömnen.</h2>
               <p className="text-warm-600 max-w-xl">
